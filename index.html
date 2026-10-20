@@ -168,45 +168,64 @@
     .adv-section {
       background: rgba(255,255,255,0.02);
       border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 16px;
-      margin-bottom: 14px;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .adv-section:hover {
+      border-color: rgba(255,255,255,0.12);
     }
     .adv-section:last-child { margin-bottom: 0; }
     .adv-label {
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.14em;
       color: var(--accent);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
     .adv-label-num {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 18px; height: 18px;
-      border-radius: 50%;
+      width: 20px; height: 20px;
+      border-radius: 6px;
       background: rgba(0,217,126,0.15);
       border: 1px solid rgba(0,217,126,0.3);
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 700;
       color: var(--accent);
       flex-shrink: 0;
     }
-    /* Score hero row */
-    .score-hero {
+    /* Section A: Score hero row */
+    .score-hero-container {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .score-hero-info {
+      flex: 1;
+      min-width: 220px;
+    }
+    .score-hero-stat-row {
       display: flex;
       align-items: baseline;
-      gap: 10px;
-      margin-bottom: 8px;
+      gap: 8px;
+      margin-bottom: 6px;
     }
     .score-hero-num {
       font-family: var(--mono);
-      font-size: 38px;
+      font-size: 40px;
       font-weight: 700;
       line-height: 1;
     }
@@ -215,29 +234,70 @@
       font-size: 16px;
       color: var(--text-3);
     }
-    .score-hero-level {
+    .score-desc-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-1);
+      margin-bottom: 4px;
+    }
+    .score-desc-text {
       font-size: 13px;
       color: var(--text-2);
+      line-height: 1.55;
     }
-    .score-disclaimer {
-      font-size: 12px;
+    .score-warning-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12.5px;
       color: var(--amber);
-      font-style: italic;
-      margin-top: 6px;
-      line-height: 1.5;
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      line-height: 1.55;
     }
-    /* Situation mini-grid */
+
+    /* Section B: Current Situation */
+    .situation-summary-text {
+      font-size: 14.5px;
+      color: var(--text-1);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .distinction-callout {
+      background: rgba(6,182,212,0.06);
+      border-left: 3px solid var(--cyan);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+    .distinction-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--cyan);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
     .situation-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 10px;
       margin-top: 10px;
     }
     .sit-tile {
-      background: rgba(0,0,0,0.25);
+      background: rgba(0,0,0,0.3);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: 10px 12px;
+      padding: 12px 14px;
     }
     .sit-tile-label {
       font-family: var(--mono);
@@ -249,82 +309,235 @@
     }
     .sit-tile-val {
       font-family: var(--mono);
-      font-size: 14px;
+      font-size: 14.5px;
       font-weight: 600;
       color: var(--text-1);
-      line-height: 1.2;
+      line-height: 1.25;
     }
     .sit-tile-sub {
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: 10.5px;
       color: var(--text-3);
-      margin-top: 2px;
+      margin-top: 4px;
     }
-    /* Action cards */
-    .action-primary {
-      background: rgba(0,217,126,0.06);
-      border-left: 3px solid var(--accent);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      padding: 12px 14px;
-      font-size: 14px;
-      color: var(--text-1);
-      line-height: 1.6;
-      margin-bottom: 12px;
-    }
-    .action-list { display: flex; flex-direction: column; gap: 10px; }
-    .action-item {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      font-size: 13px;
-      color: var(--text-2);
-      line-height: 1.55;
-    }
-    .action-bullet {
-      color: var(--accent);
-      font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .action-item strong { color: var(--text-1); }
-    .action-caution {
-      background: rgba(245,158,11,0.07);
-      border: 1px solid rgba(245,158,11,0.2);
-      border-radius: var(--radius-sm);
-      padding: 8px 12px;
-      font-size: 12px;
-      color: var(--amber);
-      margin-top: 10px;
-      line-height: 1.5;
-    }
-    /* Why section */
-    .why-intro { font-size: 13px; color: var(--text-2); line-height: 1.55; margin-bottom: 10px; }
-    .rule-card {
-      background: rgba(0,0,0,0.25);
+
+    /* Section C: Action cards */
+    .action-card {
+      background: rgba(0,0,0,0.35);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: 10px 13px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+      transition: border-color 0.2s;
+    }
+    .action-card:last-child { margin-bottom: 0; }
+    .action-card.priority-1 { border-left: 4px solid var(--red); background: rgba(239,68,68,0.03); }
+    .action-card.priority-2 { border-left: 4px solid var(--amber); background: rgba(245,158,11,0.03); }
+    .action-card.priority-3 { border-left: 4px solid var(--accent); background: rgba(0,217,126,0.03); }
+    .action-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .action-priority-pill {
+      font-family: var(--mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .pill-p1 { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: var(--red); }
+    .pill-p2 { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); color: var(--amber); }
+    .pill-p3 { background: rgba(0,217,126,0.15); border: 1px solid rgba(0,217,126,0.3); color: var(--accent); }
+    .action-card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-1);
+      margin-top: 4px;
+    }
+    .action-section-block {
+      margin-bottom: 12px;
+    }
+    .action-meta-heading {
+      font-family: var(--mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-3);
+      margin-bottom: 4px;
+    }
+    .action-meta-content {
+      font-size: 13.5px;
+      color: var(--text-1);
+      line-height: 1.55;
+    }
+    .action-meta-conditions {
       font-family: var(--mono);
       font-size: 12px;
-      margin-bottom: 6px;
+      color: var(--cyan);
+      background: rgba(6,182,212,0.06);
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(6,182,212,0.15);
       line-height: 1.5;
     }
-    .rule-card:last-child { margin-bottom: 0; }
-    .rule-name { color: var(--accent); font-weight: 600; }
-    .rule-strength {
-      display: inline-block;
-      font-size: 10px;
-      padding: 1px 7px;
-      border-radius: 10px;
-      background: rgba(0,217,126,0.1);
-      border: 1px solid rgba(0,217,126,0.2);
-      color: var(--accent);
-      margin-left: 6px;
-      vertical-align: middle;
+    .action-steps-ol {
+      margin: 6px 0 10px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.5;
     }
-    .rule-body { color: var(--text-2); font-size: 11px; margin-top: 3px; }
-    /* Impact */
-    .impact-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+    .action-steps-ol li { margin-bottom: 3px; }
+    .action-steps-ol li::marker { color: var(--accent); font-weight: 700; font-family: var(--mono); }
+    .action-quad-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .action-quad-box {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+    .action-quad-label {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-3);
+      margin-bottom: 4px;
+    }
+    .action-quad-val {
+      font-size: 12px;
+      color: var(--text-2);
+      line-height: 1.45;
+    }
+    .no-action-box {
+      background: rgba(0,217,126,0.05);
+      border: 1px solid rgba(0,217,126,0.2);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      line-height: 1.6;
+    }
+
+    /* Section D: Why These Actions? */
+    .why-intro { font-size: 13.5px; color: var(--text-2); line-height: 1.55; margin-bottom: 12px; }
+    .activation-strength-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--cyan);
+      background: rgba(6,182,212,0.06);
+      border: 1px solid rgba(6,182,212,0.2);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .rule-card {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      margin-bottom: 10px;
+    }
+    .rule-card:last-child { margin-bottom: 0; }
+    .rule-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .rule-badge-id {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(0,217,126,0.1);
+      border: 1px solid rgba(0,217,126,0.25);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .rule-name { color: var(--text-1); font-weight: 600; font-size: 13px; }
+    .rule-kind-pill {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.04);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    .rule-strength-pill {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--accent);
+      background: rgba(0,217,126,0.1);
+      border: 1px solid rgba(0,217,126,0.25);
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .rule-formula-box {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--cyan);
+      background: rgba(0,0,0,0.25);
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      margin: 6px 0;
+      line-height: 1.5;
+    }
+    .rule-keyword { color: var(--amber); font-weight: 600; }
+    .rule-explanation-text {
+      font-size: 12.5px;
+      color: var(--text-2);
+      line-height: 1.5;
+      margin-top: 6px;
+    }
+
+    /* Section E: Expected Impact */
+    .terms-distinction-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .term-box {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+    .term-title {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--cyan);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .term-desc {
+      font-size: 11.5px;
+      color: var(--text-2);
+      line-height: 1.45;
+    }
+    .impact-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
     .impact-list li {
       display: flex;
       gap: 8px;
@@ -332,26 +545,46 @@
       color: var(--text-2);
       line-height: 1.5;
     }
-    .impact-list li::before { content: '\2192'; color: var(--cyan); flex-shrink: 0; }
-    .impact-caveat { font-size: 11px; color: var(--text-3); font-style: italic; margin-top: 10px; line-height: 1.5; font-family: var(--mono); }
-    /* Gaps */
-    .gap-list { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
-    .gap-item {
+    .impact-list li::before { content: '→'; color: var(--accent); flex-shrink: 0; font-weight: 700; }
+    .savings-status-box {
+      background: rgba(245,158,11,0.06);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-size: 12.5px;
+      color: var(--amber);
+      line-height: 1.55;
+      margin-top: 14px;
+    }
+
+    /* Section F: Missing Information */
+    .missing-items-list {
       display: flex;
+      flex-direction: column;
       gap: 8px;
+      margin-top: 8px;
+    }
+    .missing-item-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
       font-size: 13px;
       color: var(--text-2);
-      align-items: flex-start;
       line-height: 1.5;
+      background: rgba(0,0,0,0.25);
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
     }
-    .gap-dot {
+    .missing-bullet {
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: var(--text-3);
+      background: var(--amber);
       flex-shrink: 0;
-      margin-top: 6px;
+      margin-top: 7px;
     }
-    /* Technical details */
+
+    /* Section G: Technical details */
     .tech-details {
       background: rgba(0,0,0,0.3);
       border: 1px solid var(--border);
@@ -361,7 +594,7 @@
     }
     .tech-summary {
       cursor: pointer;
-      padding: 12px 16px;
+      padding: 14px 18px;
       font-family: var(--mono);
       font-size: 12px;
       color: var(--text-2);
@@ -377,19 +610,101 @@
     .tech-chevron { transition: transform 0.25s; color: var(--accent); }
     details[open] .tech-chevron { transform: rotate(90deg); }
     .tech-body {
-      padding: 0 16px 16px;
+      padding: 0 18px 18px;
       border-top: 1px solid var(--border);
       padding-top: 14px;
     }
-    .memb-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
-    .memb-tag {
+    .tech-subheading {
       font-family: var(--mono);
-      font-size: 10px;
-      padding: 3px 9px;
-      border-radius: 4px;
-      background: rgba(6,182,212,0.08);
-      border: 1px solid rgba(6,182,212,0.2);
+      font-size: 11px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+    .memb-quad-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin: 10px 0 16px;
+    }
+    .memb-card {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+    }
+    .memb-card-header {
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       color: var(--cyan);
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .memb-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 3px 0;
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+    .memb-row.active { color: var(--accent); font-weight: 600; }
+    .memb-row.inactive { color: var(--text-3); }
+    .tech-rules-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      font-family: var(--mono);
+    }
+    .tech-rules-table th {
+      background: rgba(255,255,255,0.04);
+      color: var(--text-3);
+      text-align: left;
+      padding: 8px 12px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .tech-rules-table td {
+      padding: 7px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      color: var(--text-2);
+      white-space: nowrap;
+    }
+    .tech-rules-table tr.active-row td {
+      color: var(--text-1);
+      background: rgba(0,217,126,0.04);
+    }
+    .defuzz-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin: 10px 0 16px;
+    }
+    .defuzz-tile {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+    .defuzz-label {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 4px;
+    }
+    .defuzz-val {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--text-1);
+      font-weight: 600;
     }
     .diag-json {
       background: #040609;
@@ -400,7 +715,7 @@
       font-size: 11px;
       color: var(--cyan);
       overflow-x: auto;
-      max-height: 220px;
+      max-height: 240px;
       overflow-y: auto;
       line-height: 1.6;
       white-space: pre;
@@ -528,32 +843,22 @@
       <div id="error-banner"></div>
 
       <div id="result-panel">
-        <div style="height:1px;background:var(--border);margin:20px 0;"></div>
+        <div style="height:1px;background:var(--border);margin:24px 0 20px;"></div>
 
-        <!-- Score + gauge row -->
-        <div style="display:flex;align-items:flex-start;gap:20px;margin-bottom:18px;flex-wrap:wrap;">
-          <div class="score-wrap" style="flex-shrink:0;">
-            <div class="gauge-ring">
-              <svg width="120" height="120" viewBox="0 0 120 120">
-                <circle class="gauge-bg" cx="60" cy="60" r="48"/>
-                <circle class="gauge-fill" id="gauge-fill" cx="60" cy="60" r="48"
-                  stroke-dasharray="301.59" stroke-dashoffset="301.59" stroke="var(--accent)"/>
-              </svg>
-              <div class="gauge-label">
-                <span class="gauge-score" id="score-num">&#8211;</span>
-                <span class="gauge-unit">/100</span>
-              </div>
-            </div>
-            <span class="score-cat cat-unknown" id="score-cat">&#8211;</span>
+        <!-- Result Panel Header Bar -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:12px;">
+          <div>
+            <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:var(--accent);">Evaluation Results</div>
+            <div id="res-header-meta" style="font-family:var(--mono);font-size:11px;color:var(--text-3);margin-top:2px;">FSEM Mamdani Fuzzy Inference Engine &middot; Real-time Decision Support</div>
           </div>
-          <div style="flex:1;min-width:200px;padding-top:4px;">
-            <div style="font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:var(--text-3);margin-bottom:4px;">Energy Advisory Report</div>
-            <div id="res-header-rec" style="font-size:15px;color:var(--text-1);line-height:1.5;font-weight:500;">&#8211;</div>
-            <div id="res-header-exp" style="font-size:13px;color:var(--text-2);line-height:1.5;margin-top:6px;">&#8211;</div>
-          </div>
+          <div id="eval-timestamp-badge" style="font-family:var(--mono);font-size:11px;color:var(--text-2);background:rgba(255,255,255,0.04);padding:4px 10px;border-radius:4px;border:1px solid var(--border);">--</div>
         </div>
 
-        <!-- Advisory sections container -->
+        <!-- Hidden backward-compatibility elements -->
+        <span id="res-header-rec" style="display:none;"></span>
+        <span id="res-header-exp" style="display:none;"></span>
+
+        <!-- Advisory sections container: renders Sections A through G in exact sequence -->
         <div id="advisory-body"></div>
       </div>
     </div>
@@ -616,25 +921,34 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
+/* Category Normalizer and Color Mapping */
+function normalizeCategory(category) {
+  const cat = (category || '').toLowerCase().replace(/\s+/g, '');
+  if (['optimal', 'verylow', 'low'].includes(cat)) return { key: 'optimal', label: category || 'Optimal / Low', color: 'var(--accent)' };
+  if (['moderate', 'medium'].includes(cat)) return { key: 'moderate', label: category || 'Moderate', color: 'var(--amber)' };
+  if (['high', 'veryhigh'].includes(cat)) return { key: 'high', label: category || 'High', color: 'var(--red)' };
+  return { key: 'unknown', label: category || 'Undetermined', color: 'var(--text-2)' };
+}
+
 /* Gauge */
 function setGauge(score, category) {
   const fill  = document.getElementById('gauge-fill');
   const num   = document.getElementById('score-num');
   const cat   = document.getElementById('score-cat');
+  if (!fill || !num || !cat) return;
   const circ  = 2 * Math.PI * 48;
-  const offset = circ - (score / 100) * circ;
-  const colorMap = { optimal:'var(--accent)', moderate:'var(--amber)', high:'var(--red)' };
-  const key = (category || '').toLowerCase();
-  const color = colorMap[key] || 'var(--cyan)';
-  fill.style.stroke = color;
+  const numScore = (typeof score === 'number' && !isNaN(score)) ? Math.max(0, Math.min(100, score)) : 0;
+  const offset = circ - (numScore / 100) * circ;
+  const catInfo = normalizeCategory(category);
+  fill.style.stroke = catInfo.color;
   fill.style.strokeDashoffset = offset;
-  num.textContent = Math.round(score);
-  num.style.color = color;
-  cat.textContent = category || 'Unknown';
-  cat.className = 'score-cat cat-' + (key in colorMap ? key : 'unknown');
+  num.textContent = (score != null && !isNaN(score)) ? (score % 1 === 0 ? score : score.toFixed(1)) : '–';
+  num.style.color = catInfo.color;
+  cat.textContent = category || 'Undetermined';
+  cat.className = 'score-cat cat-' + catInfo.key;
 }
 
-/* Evaluate */
+/* Evaluate Form States */
 const form       = document.getElementById('eval-form');
 const evalBtn    = document.getElementById('eval-btn');
 const evalBtnTxt = document.getElementById('eval-btn-text');
@@ -646,45 +960,140 @@ const resultPanel = document.getElementById('result-panel');
 function setLoading(on) {
   evalBtn.disabled = on;
   spinner.style.display  = on ? 'block' : 'none';
-  evalBtnTxt.textContent = on ? 'Running\u2026' : 'Run Evaluation';
+  evalBtnTxt.textContent = on ? 'Evaluating\u2026' : 'Run Evaluation';
 }
 function showError(msg) {
   errBanner.textContent = '\u26A0 ' + msg;
   errBanner.style.display = 'block';
-  setTimeout(() => { errBanner.style.display = 'none'; }, 6000);
+  setTimeout(() => { errBanner.style.display = 'none'; }, 8000);
 }
 function clearError() { errBanner.style.display = 'none'; }
 
-/* ── Advisory renderer ─────────────────────────────────────────────────── */
-
-// Safely flatten a membership value (string | number | object) into a readable string
-function fmtMemberVal(v) {
-  if (v === null || v === undefined) return '–';
-  if (typeof v === 'number') return v.toFixed(2);
-  if (typeof v === 'string') return v;
-  if (typeof v === 'object') {
-    // {Comfortable: 0.67, Cool: 0.1} → "Comfortable 0.67, Cool 0.10"
-    return Object.entries(v)
-      .map(([k2, v2]) => k2 + ': ' + (typeof v2 === 'number' ? v2.toFixed(2) : String(v2)))
-      .join(' / ');
-  }
-  return String(v);
+function esc(s) {
+  if (s == null) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// Return the dominant membership label from a nested membership object
+/* Linguistic helpers */
+function translateAntecedent(str) {
+  if (!str) return 'Configured input conditions';
+  return str
+    .replace(/occ=Empty/g, 'Occupancy is Empty')
+    .replace(/occ=Low/g, 'Occupancy is Low')
+    .replace(/occ=Medium/g, 'Occupancy is Medium')
+    .replace(/occ=High/g, 'Occupancy is High')
+    .replace(/temp=Cool/g, 'Temperature is Cool')
+    .replace(/temp=Comfortable/g, 'Temperature is Comfortable')
+    .replace(/temp=Warm/g, 'Temperature is Warm')
+    .replace(/temp=Hot/g, 'Temperature is Hot')
+    .replace(/pwr=Low/g, 'Power is Low')
+    .replace(/pwr=Normal/g, 'Power is Normal')
+    .replace(/pwr=High/g, 'Power is High')
+    .replace(/pwr=VeryHigh/g, 'Power is Very High')
+    .replace(/hr=OffHours/g, 'Hour is Off-Hours')
+    .replace(/hr=Active/g, 'Hour is Active Hours')
+    .replace(/hr=Evening/g, 'Hour is Evening Transition');
+}
+
 function dominantLabel(v) {
   if (!v || typeof v !== 'object') return null;
   let best = null, bestVal = -1;
   Object.entries(v).forEach(([label, val]) => {
     const n = typeof val === 'number' ? val : 0;
-    if (n > bestVal) { bestVal = n; best = label; }
+    if (n > bestVal && n > 0) { bestVal = n; best = label; }
   });
-  return best;
+  return best ? best + ' (\u03BC=' + bestVal.toFixed(2) + ')' : null;
 }
 
-// Derive a human-readable description of the current situation from sensor inputs
-function buildSituationText(d, inputs) {
-  const parts = [];
+/* ── Section B: Current Situation Builder ──────────────────────────────── */
+function buildSituationAnalysis(d, inputs) {
+  const temp  = inputs.temperature_c;
+  const occ   = inputs.occupancy_count;
+  const cap   = inputs.room_capacity;
+  const pwr   = inputs.current_power_w;
+  const rtd   = inputs.rated_power_w;
+  const hr    = inputs.hour;
+
+  const occPct = (occ != null && cap != null && cap > 0) ? (occ / cap) * 100 : null;
+  const pwrPct = (pwr != null && rtd != null && rtd > 0) ? (pwr / rtd) * 100 : null;
+
+  // Narrative construction
+  const narrativeParts = [];
+
+  // Temperature
+  if (temp != null) {
+    if (temp >= 30) narrativeParts.push('The room is at ' + temp + '\u00B0C (hot), which requires cooling to maintain safe and productive conditions.');
+    else if (temp >= 26) narrativeParts.push('The room is at ' + temp + '\u00B0C (warm), approaching the upper comfort threshold.');
+    else if (temp >= 18) narrativeParts.push('The room is at ' + temp + '\u00B0C and within the comfortable temperature band.');
+    else narrativeParts.push('The room is at ' + temp + '\u00B0C (cool).');
+  }
+
+  // Occupancy
+  if (occ != null && cap != null) {
+    if (occ === 0) {
+      narrativeParts.push('The room is currently unoccupied (0 of ' + cap + ' capacity).');
+    } else if (occPct >= 70) {
+      narrativeParts.push('It has high occupancy (' + occ + ' out of ' + cap + ' occupants, ' + occPct.toFixed(1) + '% capacity).');
+    } else if (occPct >= 30) {
+      narrativeParts.push('It has moderate occupancy (' + occ + ' out of ' + cap + ' occupants, ' + occPct.toFixed(1) + '% capacity).');
+    } else {
+      narrativeParts.push('It has low occupancy (' + occ + ' out of ' + cap + ' occupants, ' + occPct.toFixed(1) + '% capacity).');
+    }
+  }
+
+  // Power and utilization
+  if (pwr != null && rtd != null) {
+    narrativeParts.push('Current power consumption is approximately ' + pwrPct.toFixed(1) + '% of rated power (' + pwr.toLocaleString() + ' W of ' + rtd.toLocaleString() + ' W rated).');
+    if (pwrPct >= 85 && occPct != null && occPct >= 70) {
+      narrativeParts.push('This indicates that the equipment is operating close to its rated power, which is expected under near-capacity room occupancy, but it does not establish that energy is being wasted.');
+    } else if (pwrPct >= 70 && occPct != null && occPct < 20) {
+      narrativeParts.push('The equipment is operating at a substantial fraction of rated power despite very low room occupancy, which warrants investigation of nonessential baseline equipment.');
+    } else if (pwrPct <= 30) {
+      narrativeParts.push('Power consumption is low relative to rated capacity.');
+    }
+  } else if (pwr != null) {
+    narrativeParts.push('Current active load is ' + pwr.toLocaleString() + ' W.');
+  }
+
+  // Schedule context
+  if (hr != null) {
+    if (hr >= 9 && hr < 17) narrativeParts.push('This reading was recorded at ' + (hr < 10 ? '0' + hr : hr) + ':00 during normal active working hours.');
+    else if (hr >= 17 && hr < 21) narrativeParts.push('This reading was recorded at ' + hr + ':00 during the evening transition window.');
+    else narrativeParts.push('This reading was recorded at ' + (hr < 10 ? '0' + hr : hr) + ':00 during off-peak / night hours.');
+  }
+
+  const summary = narrativeParts.join(' ');
+
+  // Distinction explanation
+  let distinction = 'Observed measurements represent direct physical telemetry recorded at this moment. Inferred conclusions represent the fuzzy inference engine\'s synthesis of operational alignment. Power consumption must not be labeled wasteful merely because it is close to rated power; high electrical draw is standard and necessary when room occupancy and thermal cooling requirements are high.';
+
+  return {
+    summary: summary || d.explanation || 'Sensor readings recorded and processed.',
+    distinction: distinction,
+    occPct: occPct,
+    pwrPct: pwrPct
+  };
+}
+
+/* ── Section C: Prioritized Action Cards ────────────────────────────────── */
+function buildActionCards(d, inputs) {
+  const cards = [];
+  const seenSignatures = new Set();
+
+  function addCard(card) {
+    const sig = (card.title + '|' + card.steps.join(';')).toLowerCase();
+    if (!seenSignatures.has(sig)) {
+      seenSignatures.add(sig);
+      cards.push(card);
+    }
+  }
+
+  const score    = (typeof d.score === 'number') ? d.score : 0;
+  const category = (d.category || '').toLowerCase();
+  const recText  = d.recommendation || '';
+  const reason   = d.reason || d.explanation || '';
+  const topRules = Array.isArray(d.top_rules) ? d.top_rules : [];
+
   const temp = inputs.temperature_c;
   const occ  = inputs.occupancy_count;
   const cap  = inputs.room_capacity;
@@ -692,341 +1101,649 @@ function buildSituationText(d, inputs) {
   const rtd  = inputs.rated_power_w;
   const hr   = inputs.hour;
 
-  // Temperature
-  if (temp != null) {
-    if (temp >= 30) parts.push('The room is hot (' + temp + '\u00B0C), which may reduce occupant comfort and productivity.');
-    else if (temp >= 26) parts.push('The room is warm (' + temp + '\u00B0C), approaching the upper comfort threshold.');
-    else if (temp >= 18) parts.push('Temperature is comfortable at ' + temp + '\u00B0C.');
-    else parts.push('The room is cool (' + temp + '\u00B0C); heating may be needed.');
-  }
+  const occPctStr = (occ != null && cap != null && cap > 0) ? ((occ / cap) * 100).toFixed(1) + '%' : 'N/A';
+  const pwrPctStr = (pwr != null && rtd != null && rtd > 0) ? ((pwr / rtd) * 100).toFixed(1) + '%' : 'N/A';
+  const conditionsStr = 'Temperature: ' + (temp != null ? temp + '\u00B0C' : 'N/A') +
+    ' \u00B7 Occupancy: ' + (occ != null ? occ : '–') + '/' + (cap != null ? cap : '–') + ' (' + occPctStr + ')' +
+    ' \u00B7 Power: ' + (pwr != null ? pwr.toLocaleString() + ' W' : '–') + '/' + (rtd != null ? rtd.toLocaleString() + ' W' : '–') + ' (' + pwrPctStr + ')' +
+    ' \u00B7 Hour: ' + (hr != null ? hr + ':00' : '–');
 
-  // Occupancy
-  if (occ != null && cap != null) {
-    const pct = Math.round((occ / cap) * 100);
-    if (pct === 0) parts.push('The room is currently unoccupied (' + occ + '/' + cap + ' people).');
-    else if (pct < 30) parts.push('Occupancy is low — ' + occ + ' of ' + cap + ' people (' + pct + '% capacity).');
-    else if (pct < 70) parts.push('Occupancy is moderate: ' + occ + ' of ' + cap + ' people (' + pct + '% capacity).');
-    else parts.push('The room has high occupancy: ' + occ + ' of ' + cap + ' people (' + pct + '% capacity).');
-  } else if (occ != null) {
-    parts.push('Occupancy: ' + occ + ' person' + (occ !== 1 ? 's' : '') + '.');
-  }
-
-  // Power
-  if (pwr != null && rtd != null) {
-    const ratio = Math.round((pwr / rtd) * 100);
-    parts.push('Power draw is ' + pwr + ' W against a rated capacity of ' + rtd + ' W (' + ratio + '% load).');
-  } else if (pwr != null) {
-    parts.push('Current power draw: ' + pwr + ' W.');
-  }
-
-  // Hour context
-  if (hr != null) {
-    if (hr >= 6 && hr < 9)   parts.push('This is an early-morning period — systems may be ramping up.');
-    else if (hr >= 9 && hr < 17)  parts.push('This is during active working hours.');
-    else if (hr >= 17 && hr < 21) parts.push('This is during the evening transition period.');
-    else parts.push('This reading is from off-peak hours (hour ' + hr + ').');
-  }
-
-  return parts.length ? parts.join(' ') : (d.explanation || 'No sensor context available.');
-}
-
-// Build context-aware action list from score, category, and memberships
-function buildActions(d, inputs) {
-  const actions = [];
-  const temp  = inputs.temperature_c;
-  const occ   = inputs.occupancy_count;
-  const cap   = inputs.room_capacity;
-  const pwr   = inputs.current_power_w;
-  const rtd   = inputs.rated_power_w;
-  const cat   = (d.category || '').toLowerCase();
-
-  const membs = d.memberships || {};
-  const tempLabel = dominantLabel(membs.temperature) || '';
-  const occLabel  = dominantLabel(membs.occupancy)   || '';
-  const pwrLabel  = dominantLabel(membs.power)       || '';
-
-  // Hot room — always prioritise comfort first
-  if (temp != null && temp >= 30) {
-    actions.push({
-      priority: 1,
-      title: 'Prioritise occupant comfort — check cooling systems',
-      body: 'At ' + temp + '\u00B0C, the room is hot. Verify that air-conditioning or ventilation is operating correctly. Adjust thermostat setpoints to bring the room within the comfortable range (22\u201326\u00B0C) before considering any power-reduction measures.',
-      caution: 'Never disable or reduce cooling while the room is occupied and above 28\u00B0C.'
+  // Check if backend returned structured recommendations
+  if (Array.isArray(d.recommendations) && d.recommendations.length > 0) {
+    d.recommendations.forEach((item, idx) => {
+      if (typeof item === 'object' && item !== null) {
+        addCard({
+          priority: item.priority || (idx + 1),
+          title: item.title || item.action || 'Recommended Action',
+          why: item.why || item.reason || reason || recText,
+          conditions: item.conditions || conditionsStr,
+          steps: Array.isArray(item.steps) ? item.steps : [item.step || item.action || 'Perform equipment audit.'],
+          expected_benefit: item.benefit || item.expected_benefit || 'Aligns equipment operation with demand.',
+          verification: item.verification || item.how_to_verify || 'Check power draw on dashboard after taking action.',
+          safety: item.safety || item.precautions || 'Do not disable mission-critical or life-safety circuits.',
+          missing_info: item.missing_info || item.missing_information || 'Circuit-level sub-metering is unavailable.'
+        });
+      } else if (typeof item === 'string' && item.trim().length > 0) {
+        parseStringRecommendation(item, idx + 1);
+      }
     });
-  } else if (temp != null && temp >= 26) {
-    actions.push({
-      priority: 2,
-      title: 'Check thermostat and ventilation setpoints',
-      body: 'The room is warming up. Confirm that cooling setpoints are correctly programmed. Ensure air filters are clean — blocked filters reduce efficiency and raise temperature.'
-    });
-  } else if (temp != null && temp < 18) {
-    actions.push({
-      priority: 2,
-      title: 'Check heating system or insulation',
-      body: 'The room is cool (' + temp + '\u00B0C). Confirm heating setpoints are active. Check for draughts or poorly insulated windows, which waste heating energy.'
-    });
+  } else if (recText && recText.trim().length > 0) {
+    parseStringRecommendation(recText, (category.includes('high') ? 1 : category.includes('moderate') ? 2 : 3));
   }
 
-  // Low occupancy with high power
-  if (occ != null && cap != null && pwr != null) {
-    const occPct = occ / cap;
-    const pwrPct = rtd ? (pwr / rtd) : null;
-    if (occPct < 0.3 && pwrPct && pwrPct > 0.5) {
-      actions.push({
+  function parseStringRecommendation(rawText, defaultPriority) {
+    const textLower = rawText.toLowerCase();
+
+    // Check if backend says conditions are consistent / no action required
+    if (textLower.includes('consistent with conditions') || textLower.includes('continue monitoring')) {
+      return; // Handled as consistent state in renderAdvisory
+    }
+
+    if (textLower.includes('review electrical loads') || textLower.includes('unnecessary lighting and cooling')) {
+      addCard({
         priority: 2,
-        title: 'Review equipment running for the current occupancy level',
-        body: 'With only ' + occ + ' of ' + cap + ' seats filled, some equipment may be running beyond what the current occupancy requires. Identify non-essential devices — secondary monitors, idle servers, unused lighting zones — and power them down or set them to standby.'
+        title: 'Review Electrical Loads & Nonessential Settings',
+        why: 'Backend recommendation: "' + rawText + '". ' + (topRules.length ? 'Triggered by fuzzy rule ' + (topRules[0].id || 'evaluation') + ' (' + (topRules[0].name || '') + ').' : ''),
+        conditions: conditionsStr,
+        steps: [
+          'Verify occupied zone requirements: Confirm that the ' + (occ != null ? occ : 'present') + ' occupants are actively utilizing workstations and active equipment.',
+          'Audit nonessential auxiliary circuits: Inspect decorative accent lighting, empty conference monitors, secondary displays, and idle projectors.',
+          'Verify HVAC thermostat setpoints: Ensure cooling setpoint is maintained between 22\u00B0C and 24\u00B0C without overcooling.',
+          'Preserve essential services: Given high room occupancy, maintain continuous operation of primary ventilation and core IT infrastructure.'
+        ],
+        expected_benefit: 'Reduces auxiliary base load and prevents unnecessary power consumption while maintaining full comfort for present occupants.',
+        verification: 'Observe the power reading on this dashboard after nonessential adjustments; active wattage should moderate while room temperature remains stable.',
+        safety: 'Do not disconnect essential ventilation, critical servers, medical refrigeration, emergency lighting, or occupied-space climate control.',
+        missing_info: 'Sub-metered breakdown (HVAC vs lighting vs plug loads) is currently unavailable, requiring physical inspection.'
       });
-    } else if (occPct === 0 && pwr != null && pwr > 200) {
-      actions.push({
+    } else if (textLower.includes('prioritize occupant comfort') || textLower.includes('essential cooling')) {
+      addCard({
         priority: 1,
-        title: 'Room is unoccupied — consider standby or shutdown',
-        body: 'No occupants are present but ' + pwr + ' W is still being drawn. Review which systems need to remain active (security, servers) and power down the rest.'
+        title: 'Prioritize Occupant Comfort & Verify Ventilation',
+        why: 'Backend recommendation: "' + rawText + '". Elevated room temperature requires cooling prioritization over aggressive load shedding.',
+        conditions: conditionsStr,
+        steps: [
+          'Maintain active cooling: Ensure primary air conditioning and ventilation remain fully operational to safeguard occupant health and productivity.',
+          'Inspect air distribution: Check supply diffusers and return air filters for blockages that reduce heat-exchange efficiency and cause fan strain.',
+          'Check thermostat setpoint: Confirm thermostat sensor calibration and verify setpoint is not set artificially low (below 22\u00B0C).',
+          'Audit parasitic internal heat gains: Deactivate unused high-wattage computing equipment or high-output lighting adding unnecessary heat load.'
+        ],
+        expected_benefit: 'Protects occupant concentration, eliminates heat-related fatigue, and improves HVAC heat-exchange efficiency.',
+        verification: 'Measure space temperature after 30 minutes; room should stabilize within comfortable boundaries (22\u201325\u00B0C).',
+        safety: 'Never disable or reduce cooling while an occupied room is above 28\u00B0C.',
+        missing_info: 'Chilled water supply temperature and volumetric airflow (CFM) data are not currently metered.'
+      });
+    } else if (textLower.includes('avoidable lighting') || textLower.includes('standby devices') || textLower.includes('switch off equipment')) {
+      addCard({
+        priority: 1,
+        title: 'Investigate Avoidable Unoccupied Loads & Standby Power',
+        why: 'Backend recommendation: "' + rawText + '". ' + (occ === 0 ? 'Room is unoccupied (0 occupants) but drawing ' + (pwr != null ? pwr.toLocaleString() + ' W' : 'power') + '.' : 'Elevated standby draw detected.'),
+        conditions: conditionsStr,
+        steps: [
+          'Confirm room vacancy: Verify that scheduled meetings or cleaning activities in the space have concluded.',
+          'Deactivate room illumination: Turn off primary ceiling lighting zones and verify automatic occupancy sensor timers.',
+          'Enable HVAC unoccupied setback: Adjust thermostat to unoccupied eco setback (e.g., 27\u00B0C cooling setback or idle ventilation).',
+          'Power down peripheral devices: Switch off idle workstation displays, projectors, printers, and shared audiovisual hardware.'
+        ],
+        expected_benefit: 'Eliminates unnecessary off-hours electricity draw and reduces building cooling load without affecting any occupants.',
+        verification: 'Check instantaneous wattage on dashboard; power draw should decrease to standby baseline levels (< 500 W).',
+        safety: 'Preserve continuous power to security systems, network switches, and emergency egress lighting.',
+        missing_info: 'Historical unoccupied baseline wattage is not logged for baseline comparison.'
+      });
+    } else if (textLower.includes('off-hours') || textLower.includes('left on unnecessarily')) {
+      addCard({
+        priority: 2,
+        title: 'Investigate Off-Hours Systems Left Running',
+        why: 'Backend recommendation: "' + rawText + '". Systems are operating at elevated power during off-peak hours with low occupancy.',
+        conditions: conditionsStr,
+        steps: [
+          'Audit after-hours equipment: Check for workstation monitors, desk fans, or auxiliary conference systems left active by departing staff.',
+          'Verify automated BAS schedules: Confirm that the building management system has transitioned to evening setback mode.',
+          'Consolidate lighting: Switch off general area illumination, keeping only task lighting active for remaining occupants.',
+          'Confirm automated shutdown scripts: Ensure networked workstations enter sleep or low-power standby overnight.'
+        ],
+        expected_benefit: 'Prevents overnight energy waste and aligns building power draw with minimal after-hours occupancy.',
+        verification: 'Re-evaluate dashboard after night sweep; power consumption should reflect minimal baseline load.',
+        safety: 'Ensure adequate egress lighting and security cameras remain energized for building safety.',
+        missing_info: 'Nighttime baseline consumption data is unavailable for automated comparison.'
+      });
+    } else {
+      // General parsed action
+      const sentences = rawText.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 5);
+      addCard({
+        priority: defaultPriority,
+        title: 'Operational Action Directive',
+        why: 'Backend recommendation: "' + rawText + '". ' + (reason ? 'Reason: ' + reason : ''),
+        conditions: conditionsStr,
+        steps: sentences.length > 0 ? sentences : ['Inspect active electrical circuits and equipment settings.', 'Verify that operating loads correspond to current occupant requirements.'],
+        expected_benefit: 'Aligns instantaneous electrical power with operational demand.',
+        verification: 'Observe power draw on this dashboard after adjustments; active wattage should stabilize at normal levels.',
+        safety: 'Do not interrupt life-safety, emergency, or critical computing circuits.',
+        missing_info: 'Sub-metered circuit data is unavailable.'
       });
     }
   }
 
-  // Optimal state — maintenance advice
-  if (cat === 'optimal' && actions.length === 0) {
-    actions.push({
-      priority: 3,
-      title: 'Conditions are well-balanced — maintain current settings',
-      body: 'Sensor readings are within optimal ranges. Continue monitoring at regular intervals. Log this reading as a reference baseline for future comparisons.'
-    });
-  }
-
-  // General action always present
-  actions.push({
-    priority: 4,
-    title: 'Schedule a periodic equipment audit',
-    body: 'Even when readings are good, HVAC filters, sensor calibration, and equipment efficiency should be verified quarterly to ensure reported values remain accurate.'
-  });
-
-  return actions.sort((a, b) => a.priority - b.priority);
+  return cards.sort((a, b) => a.priority - b.priority);
 }
 
-// Derive impact bullets from data
-function buildImpact(d, inputs) {
-  const impacts = [];
-  const cat = (d.category || '').toLowerCase();
+/* ── Section D: Rule Explanations ──────────────────────────────────────── */
+function buildActiveRules(d) {
+  const allRules = Array.isArray(d.rules) ? d.rules : [];
+  const topRules = Array.isArray(d.top_rules) ? d.top_rules : [];
+
+  // Prefer top_rules if available, else filter allRules with strength > 0
+  let active = [];
+  if (topRules.length > 0) {
+    active = topRules.filter(r => (typeof r === 'object' && r !== null ? (r.strength > 0 || r.activation > 0) : true));
+  } else if (allRules.length > 0) {
+    active = allRules.filter(r => (r.strength > 0 || r.activation > 0));
+  }
+
+  return active;
+}
+
+/* ── Section E: Expected Impact ────────────────────────────────────────── */
+function buildQualitativeImpact(d, inputs) {
+  const benefits = [];
   const temp = inputs.temperature_c;
   const occ  = inputs.occupancy_count;
   const cap  = inputs.room_capacity;
+  const pwr  = inputs.current_power_w;
+  const rtd  = inputs.rated_power_w;
 
-  if (temp != null && temp >= 30) {
-    impacts.push('Restoring comfortable temperatures directly improves occupant concentration, health, and reduces heat-related fatigue.');
+  if (temp != null && temp >= 28) {
+    benefits.push('Prioritizing cooling setpoints protects occupant health, cognitive performance, and comfort during high thermal load conditions.');
+  } else if (temp != null && temp <= 25 && temp >= 20) {
+    benefits.push('Maintaining comfortable indoor temperatures avoids overcooling cycles that waste electricity and increase equipment wear.');
   }
-  if (occ != null && cap != null && occ / cap < 0.3) {
-    impacts.push('Aligning equipment usage with actual occupancy reduces unnecessary runtime and thermal load on the building\'s HVAC system.');
-  }
-  if (cat === 'optimal') {
-    impacts.push('Sustained optimal conditions extend the operational lifespan of HVAC and electrical equipment by reducing thermal cycling stress.');
-  }
-  if (cat === 'high') {
-    impacts.push('Addressing the identified issues prevents accelerated equipment wear and avoids unplanned downtime.');
-  }
-  impacts.push('Regular monitoring builds a historical baseline that enables more accurate trend analysis and anomaly detection over time.');
 
-  return impacts;
+  if (occ != null && cap != null && (occ / cap) >= 0.7) {
+    benefits.push('Distinguishing legitimate high-occupancy productive load from inefficiency avoids disruptive and unnecessary equipment shutdowns.');
+  }
+
+  if (occ === 0 && pwr != null && pwr > 500) {
+    benefits.push('Powering down unoccupied lighting and secondary equipment eliminates phantom baseload power immediately.');
+  }
+
+  benefits.push('Regular continuous monitoring builds an empirical operational baseline for accurate long-term anomaly detection.');
+  benefits.push('Mitigates continuous thermal and electrical stress on compressors, fans, and power distribution components.');
+
+  return benefits;
 }
 
-// Identify what data gaps exist
-function buildGaps(d, inputs) {
+/* ── Section F: Missing Information & Baselines ────────────────────────── */
+function buildMissingGaps(d, inputs) {
   const gaps = [];
-  if (inputs.rated_power_w == null) gaps.push('Rated power (W) was not provided. Without it, the power load ratio cannot be calculated and power-related rules may not activate correctly.');
-  if (inputs.room_capacity == null) gaps.push('Room capacity was not provided. Occupancy recommendations cannot be proportionally assessed.');
-  if (!d.baseline_kwh) gaps.push('No historical energy baseline is available. To validate whether current consumption is higher or lower than normal, a metered baseline is needed.');
-  if (inputs.temperature_c == null) gaps.push('No temperature reading was submitted. The thermal comfort and cooling rules were not evaluated.');
-  if (inputs.hour == null) gaps.push('Hour of day was not provided. Time-of-day context (peak vs. off-peak) could not be applied.');
-  if (gaps.length === 0) gaps.push('All core sensor fields were provided. For enhanced advice, consider adding outdoor ambient temperature, zone-level sub-metering, and occupancy duration.');
+
+  // Check form inputs
+  if (inputs.rated_power_w == null) {
+    gaps.push({ title: 'Rated Equipment Power', desc: 'Rated power was not provided. Power load utilization ratio cannot be calculated, which prevents power-scale fuzzy rules from evaluating accurately.' });
+  }
+  if (inputs.room_capacity == null) {
+    gaps.push({ title: 'Room Design Capacity', desc: 'Room capacity was omitted. Relative occupancy density (% capacity) cannot be computed.' });
+  }
+  if (inputs.temperature_c == null) {
+    gaps.push({ title: 'Space Temperature Reading', desc: 'Temperature sensor reading was omitted. Thermal comfort and cooling efficiency rules could not be evaluated.' });
+  }
+  if (inputs.hour == null) {
+    gaps.push({ title: 'Time of Day / Operating Schedule', desc: 'Operating hour was not provided. Time-of-day context (active working hours vs off-peak setback) could not be applied.' });
+  }
+
+  // Systematic telemetry gaps
+  gaps.push({
+    title: 'Calibrated Historical Consumption Baseline',
+    desc: 'No multi-day metered baseline is available. Without historical reference data under comparable occupancy, time, and outdoor weather, current consumption cannot be definitively labeled higher or lower than normal.'
+  });
+  gaps.push({
+    title: 'Disaggregated Sub-Circuit Metering',
+    desc: 'Current reading reflects aggregated room power. Sub-metered breakdown separating HVAC compressor load, air handlers, lighting circuits, and receptacle plug loads would identify exact parasitic devices.'
+  });
+  gaps.push({
+    title: 'Operating Duration & Load Persistence',
+    desc: 'The duration of this load level is unknown. Telemetry does not indicate whether current power is a temporary 5-minute startup surge or a sustained multi-hour condition.'
+  });
+  gaps.push({
+    title: 'Outdoor Ambient Weather Telemetry',
+    desc: 'Outdoor dry-bulb temperature and solar irradiance data are missing. This information is necessary to distinguish external climate load from internal building envelope inefficiency.'
+  });
+
   return gaps;
 }
 
+/* ── Section G: Memberships Card Formatter ─────────────────────────────── */
+function renderMembershipCards(membs) {
+  if (!membs || typeof membs !== 'object' || Object.keys(membs).length === 0) {
+    return '<div style="font-family:var(--mono);font-size:12px;color:var(--text-3);padding:12px;">No membership function data returned by engine.</div>';
+  }
+
+  const varNames = {
+    temperature: 'Temperature (\u00B0C)',
+    occupancy: 'Occupancy Ratio',
+    power: 'Power Load Ratio',
+    hour: 'Time of Day (Hour)'
+  };
+
+  let html = '';
+  Object.entries(membs).forEach(([key, sets]) => {
+    const title = varNames[key] || (key.charAt(0).toUpperCase() + key.slice(1));
+    html += '<div class="memb-card">';
+    html += '<div class="memb-card-header">' + esc(title) + '</div>';
+    if (sets && typeof sets === 'object') {
+      Object.entries(sets).forEach(([setName, val]) => {
+        const num = typeof val === 'number' ? val : parseFloat(val);
+        const isActive = !isNaN(num) && num > 0;
+        const valStr = !isNaN(num) ? num.toFixed(3) : esc(String(val));
+        html += '<div class="memb-row ' + (isActive ? 'active' : 'inactive') + '">';
+        html += '<span class="memb-name">' + esc(setName) + '</span>';
+        html += '<span class="memb-val">' + valStr + (isActive ? ' \u2713' : '') + '</span>';
+        html += '</div>';
+      });
+    } else {
+      html += '<div class="memb-row inactive"><span>Value</span><span>' + esc(String(sets)) + '</span></div>';
+    }
+    html += '</div>';
+  });
+
+  return html;
+}
+
+/* ── Copy JSON Helper ─────────────────────────────────────────────────── */
+function copyDiagnosticJson() {
+  const pre = document.getElementById('diag-json-pre');
+  const btn = document.getElementById('copy-json-btn');
+  if (!pre) return;
+  const text = pre.textContent || pre.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    if (btn) {
+      const orig = btn.textContent;
+      btn.textContent = '\u2713 Copied!';
+      btn.style.color = 'var(--accent)';
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.color = '';
+      }, 2000);
+    }
+  }).catch(() => {
+    if (btn) btn.textContent = 'Copy failed';
+  });
+}
+
+/* ── Main Advisory Renderer ────────────────────────────────────────────── */
 function renderAdvisory(d) {
   const container = document.getElementById('advisory-body');
   if (!container) return;
 
-  // Resolve inputs: the API may echo them back in data.inputs or at the top level
+  // Resolve inputs with fallback to submitted values
   const inputs = Object.assign(
     {},
+    d._submitted || {},
     d.inputs || {},
-    // also pick top-level fields the API might return
     {
-      temperature_c:    d.temperature_c    ?? (d.inputs || {}).temperature_c,
-      occupancy_count:  d.occupancy_count  ?? (d.inputs || {}).occupancy_count,
-      room_capacity:    d.room_capacity    ?? (d.inputs || {}).room_capacity,
-      current_power_w:  d.current_power_w  ?? (d.inputs || {}).current_power_w,
-      rated_power_w:    d.rated_power_w    ?? (d.inputs || {}).rated_power_w,
-      hour:             d.hour             ?? (d.inputs || {}).hour,
+      temperature_c:   d.temperature_c   ?? (d.inputs || {}).temperature_c   ?? (d._submitted || {}).temperature_c,
+      occupancy_count: d.occupancy_count ?? (d.inputs || {}).occupancy_count ?? (d._submitted || {}).occupancy_count,
+      room_capacity:   d.room_capacity   ?? (d.inputs || {}).room_capacity   ?? (d._submitted || {}).room_capacity,
+      current_power_w: d.current_power_w ?? (d.inputs || {}).current_power_w ?? (d._submitted || {}).current_power_w,
+      rated_power_w:   d.rated_power_w   ?? (d.inputs || {}).rated_power_w   ?? (d._submitted || {}).rated_power_w,
+      hour:            d.hour            ?? (d.inputs || {}).hour            ?? (d._submitted || {}).hour
     }
   );
 
-  const score    = d.score    ?? 0;
-  const category = d.category ?? 'Unknown';
-  const catKey   = category.toLowerCase();
-  const catClass = ['optimal','moderate','high'].includes(catKey) ? catKey : 'unknown';
-  const membs    = d.memberships || {};
-  const topRules = d.top_rules  || [];
-  const rec      = d.recommendation || '–';
-  const exp      = d.explanation    || '';
+  const score     = (typeof d.score === 'number' && !isNaN(d.score)) ? d.score : 0;
+  const rawScore  = (typeof d.score_raw === 'number') ? d.score_raw : score;
+  const category  = d.category || 'Undetermined';
+  const catInfo   = normalizeCategory(category);
+  const membs     = d.memberships || {};
+  const allRules  = Array.isArray(d.rules) ? d.rules : [];
+  const recText   = d.recommendation || '';
 
-  // Populate header summary (visible above advisory body)
+  // Update header metadata
+  const tsBadge = document.getElementById('eval-timestamp-badge');
+  if (tsBadge) {
+    const dt = d.evaluated_at ? new Date(d.evaluated_at) : new Date();
+    tsBadge.textContent = dt.toLocaleTimeString('en-US', { hour12: false }) + ' \u00B7 ' + dt.toLocaleDateString();
+  }
+
+  // Populate backward compatibility fields
   const hRec = document.getElementById('res-header-rec');
   const hExp = document.getElementById('res-header-exp');
-  if (hRec) hRec.textContent = rec;
-  if (hExp) hExp.textContent = exp;
+  if (hRec) hRec.textContent = recText || '–';
+  if (hExp) hExp.textContent = d.explanation || d.reason || '–';
 
-  const situationText = buildSituationText(d, inputs);
-  const actions       = buildActions(d, inputs);
-  const impacts       = buildImpact(d, inputs);
-  const gaps          = buildGaps(d, inputs);
-
-  // Calculate occupancy %
-  let occPct = '';
-  if (inputs.occupancy_count != null && inputs.room_capacity != null && inputs.room_capacity > 0)
-    occPct = Math.round((inputs.occupancy_count / inputs.room_capacity) * 100) + '%';
-
-  // Power load %
-  let pwrPct = '';
-  if (inputs.current_power_w != null && inputs.rated_power_w != null && inputs.rated_power_w > 0)
-    pwrPct = Math.round((inputs.current_power_w / inputs.rated_power_w) * 100) + '%';
-
-  // Hour label
-  let hrLabel = '';
-  if (inputs.hour != null) {
-    const h = inputs.hour;
-    hrLabel = (h < 10 ? '0' + h : h) + ':00';
-    if (h >= 6 && h < 9) hrLabel += ' (Morning)';
-    else if (h >= 9 && h < 17) hrLabel += ' (Working hours)';
-    else if (h >= 17 && h < 21) hrLabel += ' (Evening)';
-    else hrLabel += ' (Off-peak)';
-  }
+  // Build analysis data
+  const sitAnalysis  = buildSituationAnalysis(d, inputs);
+  const actionCards  = buildActionCards(d, inputs);
+  const activeRules  = buildActiveRules(d);
+  const qualImpacts  = buildQualitativeImpact(d, inputs);
+  const missingGaps  = buildMissingGaps(d, inputs);
 
   let html = '';
 
-  /* ── 1. Energy Opportunity Score ── */
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION A: Energy Optimization Score
+     ═══════════════════════════════════════════════════════════════════════ */
   html += '<div class="adv-section">';
-  html += '<div class="adv-label"><span class="adv-label-num">1</span>Energy Opportunity Score</div>';
-  html += '<div class="score-hero">';
-  html += '<span class="score-hero-num" style="color:' + (catKey==='optimal'?'var(--accent)':catKey==='moderate'?'var(--amber)':'var(--red)') + '">' + Math.round(score) + '</span>';
-  html += '<span class="score-hero-denom">/100</span>';
-  html += '<span class="score-hero-level">Level: <strong style="color:var(--text-1)">' + esc(category) + '</strong></span>';
+  html += '<div class="adv-label"><span class="adv-label-num">A</span>Energy Optimization Score</div>';
+
+  html += '<div class="score-hero-container">';
+  // SVG circular gauge
+  html += '<div class="gauge-ring" style="flex-shrink:0;">';
+  html += '<svg width="120" height="120" viewBox="0 0 120 120">';
+  html += '<circle class="gauge-bg" cx="60" cy="60" r="48"/>';
+  html += '<circle class="gauge-fill" id="gauge-fill" cx="60" cy="60" r="48" stroke-dasharray="301.59" stroke-dashoffset="301.59" stroke="' + catInfo.color + '"/>';
+  html += '</svg>';
+  html += '<div class="gauge-label">';
+  html += '<span class="gauge-score" id="score-num" style="color:' + catInfo.color + '">' + (score % 1 === 0 ? score : score.toFixed(1)) + '</span>';
+  html += '<span class="gauge-unit">/100</span>';
   html += '</div>';
-  html += '<p style="font-size:13px;color:var(--text-2);line-height:1.55;">This is the fuzzy evaluation opportunity index produced by the FSEM engine. It reflects how well the current operating conditions align with the configured efficiency and comfort rules.</p>';
-  html += '<p class="score-disclaimer">This score does not represent a percentage of energy wasted or saved. It is an index of operational alignment — a higher score means conditions are well-matched to the target rules.</p>';
   html += '</div>';
 
-  /* ── 2. Current Situation ── */
+  // Score details column
+  html += '<div class="score-hero-info">';
+  html += '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;">';
+  html += '<span class="score-cat cat-' + catInfo.key + '" id="score-cat">' + esc(category) + '</span>';
+  html += '<span style="font-family:var(--mono);font-size:11px;color:var(--text-3);">Centroid Defuzzified Value: ' + rawScore.toFixed(2) + ' / 100</span>';
+  html += '</div>';
+  html += '<div class="score-desc-title">Operational Alignment Index</div>';
+  html += '<p class="score-desc-text">';
+  if (d.score_definition) {
+    html += esc(d.score_definition);
+  } else if (d.score_meaning) {
+    html += esc(d.score_meaning);
+  } else {
+    html += 'The Energy Optimization Score is an operational opportunity index (0\u2013100) produced by the FSEM Mamdani fuzzy inference engine. It evaluates how strongly current operating conditions match configured energy efficiency and comfort rule criteria using center-of-gravity defuzzification.';
+  }
+  html += '</p>';
+  html += '</div>';
+  html += '</div>';
+
+  // Mandatory interpretation disclaimer
+  html += '<div class="score-warning-note">';
+  html += '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:2px;">';
+  html += '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+  html += '</svg>';
+  html += '<div>';
+  html += '<strong>Critical Interpretation Notice:</strong> ';
+  html += 'This score is an index of operational optimization opportunity. ';
+  html += '<strong>It does not represent a percentage of energy wasted, consumed, or saved.</strong> ';
+  html += 'A score of ' + (score % 1 === 0 ? score : score.toFixed(1)) + ' indicates ' + esc(category.toLowerCase()) + ' alignment with rule-based intervention criteria, not an empirical measurement of wasted kilowatt-hours.';
+  html += '</div>';
+  html += '</div>';
+  html += '</div>';
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION B: Current Situation
+     ═══════════════════════════════════════════════════════════════════════ */
   html += '<div class="adv-section">';
-  html += '<div class="adv-label"><span class="adv-label-num">2</span>Current Situation</div>';
-  html += '<p style="font-size:14px;color:var(--text-1);line-height:1.6;margin-bottom:12px;">' + esc(situationText) + '</p>';
+  html += '<div class="adv-label"><span class="adv-label-num">B</span>Current Situation</div>';
+
+  html += '<p class="situation-summary-text">' + esc(sitAnalysis.summary) + '</p>';
+
+  // Direct observations vs inferred conclusions callout
+  html += '<div class="distinction-callout">';
+  html += '<div class="distinction-title">';
+  html += '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+  html += 'Observed Measurements vs. Inferred Conclusions';
+  html += '</div>';
+  html += '<div>';
+  html += '<div><strong>Observed Measurements (Direct Sensor Telemetry):</strong> Temperature = ' + (inputs.temperature_c != null ? inputs.temperature_c + '\u00B0C' : '–') + ', Occupancy = ' + (inputs.occupancy_count != null ? inputs.occupancy_count : '–') + '/' + (inputs.room_capacity != null ? inputs.room_capacity : '–') + ' (' + (sitAnalysis.occPct != null ? sitAnalysis.occPct.toFixed(1) + '%' : '–') + '), Power Draw = ' + (inputs.current_power_w != null ? inputs.current_power_w.toLocaleString() + ' W' : '–') + '/' + (inputs.rated_power_w != null ? inputs.rated_power_w.toLocaleString() + ' W' : '–') + ' (' + (sitAnalysis.pwrPct != null ? sitAnalysis.pwrPct.toFixed(1) + '%' : '–') + '), Hour = ' + (inputs.hour != null ? inputs.hour + ':00' : '–') + '.</div>';
+  html += '<div style="margin-top:6px;"><strong>Inferred Conclusions (Fuzzy Logic Assessment):</strong> ' + esc(sitAnalysis.distinction) + '</div>';
+  html += '</div>';
+  html += '</div>';
+
+  // Metrics Grid
   html += '<div class="situation-grid">';
   if (inputs.temperature_c != null) {
     const tColor = inputs.temperature_c >= 30 ? 'var(--red)' : inputs.temperature_c >= 26 ? 'var(--amber)' : 'var(--accent)';
-    html += '<div class="sit-tile"><div class="sit-tile-label">Temperature</div><div class="sit-tile-val" style="color:' + tColor + '">' + inputs.temperature_c + ' \u00B0C</div>';
-    html += '<div class="sit-tile-sub">' + (dominantLabel(membs.temperature) || '') + '</div></div>';
+    const tLabel = dominantLabel(membs.temperature) || (inputs.temperature_c >= 30 ? 'Hot' : inputs.temperature_c >= 26 ? 'Warm' : inputs.temperature_c >= 18 ? 'Comfortable' : 'Cool');
+    html += '<div class="sit-tile"><div class="sit-tile-label">Space Temperature</div><div class="sit-tile-val" style="color:' + tColor + '">' + inputs.temperature_c + ' \u00B0C</div><div class="sit-tile-sub">' + esc(tLabel) + '</div></div>';
   }
   if (inputs.occupancy_count != null) {
-    html += '<div class="sit-tile"><div class="sit-tile-label">Occupancy</div><div class="sit-tile-val">' + inputs.occupancy_count + (inputs.room_capacity != null ? ' / ' + inputs.room_capacity : '') + '</div>';
-    if (occPct) html += '<div class="sit-tile-sub">' + occPct + ' capacity</div>';
-    html += '</div>';
+    const occLabel = dominantLabel(membs.occupancy) || (sitAnalysis.occPct != null ? (sitAnalysis.occPct === 0 ? 'Empty' : sitAnalysis.occPct >= 70 ? 'High' : sitAnalysis.occPct >= 30 ? 'Medium' : 'Low') : '');
+    html += '<div class="sit-tile"><div class="sit-tile-label">Occupancy</div><div class="sit-tile-val">' + inputs.occupancy_count + (inputs.room_capacity != null ? ' / ' + inputs.room_capacity : '') + '</div><div class="sit-tile-sub">' + (sitAnalysis.occPct != null ? sitAnalysis.occPct.toFixed(1) + '% capacity \u00B7 ' : '') + esc(occLabel) + '</div></div>';
   }
   if (inputs.current_power_w != null) {
-    html += '<div class="sit-tile"><div class="sit-tile-label">Power Draw</div><div class="sit-tile-val">' + inputs.current_power_w + ' W</div>';
-    if (pwrPct) html += '<div class="sit-tile-sub">' + pwrPct + ' of rated</div>';
-    html += '</div>';
+    const pwrLabel = dominantLabel(membs.power) || (sitAnalysis.pwrPct != null ? (sitAnalysis.pwrPct >= 80 ? 'High / Very High' : sitAnalysis.pwrPct >= 40 ? 'Normal' : 'Low') : '');
+    html += '<div class="sit-tile"><div class="sit-tile-label">Power Utilization</div><div class="sit-tile-val">' + inputs.current_power_w.toLocaleString() + ' W</div><div class="sit-tile-sub">' + (sitAnalysis.pwrPct != null ? sitAnalysis.pwrPct.toFixed(1) + '% of rated \u00B7 ' : '') + esc(pwrLabel) + '</div></div>';
   }
   if (inputs.hour != null) {
-    html += '<div class="sit-tile"><div class="sit-tile-label">Time</div><div class="sit-tile-val">' + hrLabel + '</div></div>';
+    const h = inputs.hour;
+    const hrDesc = (h >= 9 && h < 17) ? 'Active Working Hours' : (h >= 17 && h < 21) ? 'Evening Transition' : 'Off-Peak Hours';
+    html += '<div class="sit-tile"><div class="sit-tile-label">Operating Schedule</div><div class="sit-tile-val">' + (h < 10 ? '0' + h : h) + ':00</div><div class="sit-tile-sub">' + hrDesc + '</div></div>';
   }
-  html += '</div></div>';
+  const clipNote = (d.inputs && d.inputs.clip_note) ? d.inputs.clip_note : 'No clipping applied.';
+  html += '<div class="sit-tile"><div class="sit-tile-label">Sensor Telemetry</div><div class="sit-tile-val" style="color:var(--accent);">Original Valid</div><div class="sit-tile-sub">' + esc(clipNote) + '</div></div>';
+  html += '</div>';
 
-  /* ── 3. What You Should Do Now ── */
-  html += '<div class="adv-section">';
-  html += '<div class="adv-label"><span class="adv-label-num">3</span>What You Should Do Now</div>';
-  if (rec && rec !== '–') {
-    html += '<div class="action-primary"><strong>Recommendation from engine:</strong> ' + esc(rec) + '</div>';
-  }
-  html += '<div class="action-list">';
-  actions.forEach(a => {
-    html += '<div class="action-item">';
-    html += '<span class="action-bullet">&#9679;</span>';
-    html += '<div><strong>' + esc(a.title) + '</strong><br>' + esc(a.body) + '</div>';
-    html += '</div>';
-    if (a.caution) html += '<div class="action-caution">&#9888; ' + esc(a.caution) + '</div>';
-  });
-  html += '</div></div>';
+  html += '</div>';
 
-  /* ── 4. Why These Actions? ── */
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION C: What You Should Do Now
+     ═══════════════════════════════════════════════════════════════════════ */
   html += '<div class="adv-section">';
-  html += '<div class="adv-label"><span class="adv-label-num">4</span>Why These Actions?</div>';
-  html += '<p class="why-intro">The fuzzy inference engine evaluated your sensor inputs against membership functions for temperature, occupancy, power, and time of day. These are the rules that had the highest activation:</p>';
-  if (topRules.length) {
-    topRules.forEach(r => {
-      html += '<div class="rule-card">';
-      if (typeof r === 'string') {
-        html += '<span class="rule-name">' + esc(r) + '</span>';
-      } else if (r && typeof r === 'object') {
-        const name   = r.name || r.id || r.rule || 'Rule';
-        const body   = r.antecedent || r.description || r.condition || '';
-        const strength = r.strength != null ? r.strength : (r.activation != null ? r.activation : null);
-        const consequence = r.consequent || r.conclusion || '';
-        html += '<span class="rule-name">' + esc(String(name)) + '</span>';
-        if (strength != null) html += '<span class="rule-strength">activation: ' + (typeof strength === 'number' ? strength.toFixed(3) : esc(String(strength))) + '</span>';
-        if (body)        html += '<div class="rule-body">IF ' + esc(String(body)) + '</div>';
-        if (consequence) html += '<div class="rule-body" style="color:var(--accent)">THEN ' + esc(String(consequence)) + '</div>';
-      }
+  html += '<div class="adv-label"><span class="adv-label-num">C</span>What You Should Do Now</div>';
+
+  if (actionCards.length > 0) {
+    html += '<p style="font-size:13px;color:var(--text-2);margin-bottom:14px;line-height:1.5;">Prioritized, actionable directives derived from backend evaluation and active fuzzy rules.</p>';
+    actionCards.forEach(card => {
+      const pClass = 'priority-' + card.priority;
+      const pillClass = 'pill-p' + card.priority;
+      const pLabel = card.priority === 1 ? 'High Priority' : card.priority === 2 ? 'Medium Priority' : 'Routine Advisory';
+
+      html += '<div class="action-card ' + pClass + '">';
+      html += '<div class="action-card-header">';
+      html += '<div class="action-card-title-wrap">';
+      html += '<span class="action-priority-pill ' + pillClass + '">Priority ' + card.priority + ' \u00B7 ' + pLabel + '</span>';
+      html += '<div class="action-card-title">' + esc(card.title) + '</div>';
+      html += '</div>';
+      html += '</div>';
+
+      html += '<div class="action-section-block">';
+      html += '<div class="action-meta-heading">Why Recommended</div>';
+      html += '<div class="action-meta-content">' + esc(card.why) + '</div>';
+      html += '</div>';
+
+      html += '<div class="action-section-block">';
+      html += '<div class="action-meta-heading">Actual Sensor Readings Supporting This Action</div>';
+      html += '<div class="action-meta-conditions">' + esc(card.conditions) + '</div>';
+      html += '</div>';
+
+      html += '<div class="action-section-block">';
+      html += '<div class="action-meta-heading">Action Steps</div>';
+      html += '<ol class="action-steps-ol">';
+      card.steps.forEach(step => {
+        html += '<li>' + esc(step) + '</li>';
+      });
+      html += '</ol>';
+      html += '</div>';
+
+      html += '<div class="action-quad-grid">';
+      html += '<div class="action-quad-box"><div class="action-quad-label">Expected Benefit</div><div class="action-quad-val">' + esc(card.expected_benefit) + '</div></div>';
+      html += '<div class="action-quad-box"><div class="action-quad-label">How to Verify Result</div><div class="action-quad-val">' + esc(card.verification) + '</div></div>';
+      html += '<div class="action-quad-box"><div class="action-quad-label">Safety & Comfort Precaution</div><div class="action-quad-val" style="color:#fca5a5;">' + esc(card.safety) + '</div></div>';
+      html += '<div class="action-quad-box"><div class="action-quad-label">Missing Information</div><div class="action-quad-val" style="color:var(--amber);">' + esc(card.missing_info) + '</div></div>';
+      html += '</div>';
+
       html += '</div>';
     });
   } else {
-    html += '<p style="font-size:13px;color:var(--text-3);font-family:var(--mono);">No specific rules were returned by the engine for this evaluation.</p>';
+    // Clear notification that available data does not establish an action
+    html += '<div class="no-action-box">';
+    html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">';
+    html += '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+    html += '<strong style="color:var(--text-1);font-size:15px;">No Immediate Action Required</strong>';
+    html += '</div>';
+    html += '<p style="font-size:13.5px;color:var(--text-2);line-height:1.6;margin-bottom:8px;">';
+    html += 'The available sensor data does not establish a specific energy-reduction action. Current power draw and environmental conditions are balanced and consistent with occupancy requirements.';
+    html += '</p>';
+    html += '<div style="font-family:var(--mono);font-size:11px;color:var(--accent);">';
+    html += 'Engine recommendation: "' + esc(recText || 'Usage appears consistent with conditions. Continue monitoring.') + '"';
+    html += '</div>';
+    html += '</div>';
   }
+
   html += '</div>';
 
-  /* ── 5. Expected Impact ── */
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION D: Why These Actions?
+     ═══════════════════════════════════════════════════════════════════════ */
   html += '<div class="adv-section">';
-  html += '<div class="adv-label"><span class="adv-label-num">5</span>Expected Impact</div>';
-  html += '<ul class="impact-list">';
-  impacts.forEach(i => { html += '<li>' + esc(i) + '</li>'; });
-  html += '</ul>';
-  html += '<p class="impact-caveat">Qualitative guidance only. No specific energy savings figures are claimed without a verified historical baseline and sub-metered data.</p>';
+  html += '<div class="adv-label"><span class="adv-label-num">D</span>Why These Actions? &mdash; Fuzzy Rule Analysis</div>';
+  html += '<p class="why-intro">The Mamdani fuzzy inference engine maps sensor inputs into membership sets and evaluates configured rules using the fuzzy MIN (AND) operator. The active rules below drove this evaluation:</p>';
+
+  html += '<div class="activation-strength-note">';
+  html += '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+  html += '<div><strong>Understanding Activation Strength:</strong> An activation strength of 1.000 means the antecedent conditions were fully satisfied under the configured fuzzy membership functions. <strong>It does not mean 100% energy waste or guaranteed savings.</strong> Rules with zero activation are omitted.</div>';
   html += '</div>';
 
-  /* ── 6. Missing Information ── */
-  html += '<div class="adv-section">';
-  html += '<div class="adv-label"><span class="adv-label-num">6</span>Missing Information</div>';
-  html += '<div class="gap-list">';
-  gaps.forEach(g => {
-    html += '<div class="gap-item"><div class="gap-dot"></div><span>' + esc(g) + '</span></div>';
-  });
-  html += '</div></div>';
+  if (activeRules.length > 0) {
+    activeRules.forEach(r => {
+      const rId = r.id || 'Rule';
+      const rName = r.name || rId;
+      const rawStrength = (r.strength != null) ? r.strength : ((r.activation != null) ? r.activation : 1);
+      const strengthNum = (typeof rawStrength === 'number') ? rawStrength : parseFloat(rawStrength) || 0;
+      const antecedent = r.antecedent || r.description || '';
+      const translated = translateAntecedent(antecedent);
+      const consequence = r.output || r.consequent || 'Medium';
 
-  /* ── 7. Technical Details (collapsed) ── */
-  html += '<details class="tech-details">';
-  html += '<summary class="tech-summary"><span class="tech-chevron">&#9658;</span>7 \u00B7 Technical Details &mdash; Fuzzy memberships, rule activations &amp; diagnostic JSON</summary>';
-  html += '<div class="tech-body">';
-  html += '<div style="font-family:var(--mono);font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;">Fuzzy Memberships</div>';
-  html += '<div class="memb-grid">';
-  const membEntries = Object.entries(membs);
-  if (membEntries.length) {
-    membEntries.forEach(([k, v]) => {
-      const tag = document.createElement('span');
-      tag.className = 'memb-tag';
-      tag.textContent = k + ': ' + fmtMemberVal(v);
-      // Can't use innerHTML here so we build the full tag text and inject below
-      html += '<span class="memb-tag">' + esc(k) + ': ' + esc(fmtMemberVal(v)) + '</span>';
+      html += '<div class="rule-card">';
+      html += '<div class="rule-card-header">';
+      html += '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">';
+      html += '<span class="rule-badge-id">' + esc(rId) + '</span>';
+      html += '<span class="rule-name">' + esc(rName) + '</span>';
+      if (r.kind) html += '<span class="rule-kind-pill">' + esc(r.kind) + '</span>';
+      html += '</div>';
+      html += '<span class="rule-strength-pill">Activation Strength: ' + strengthNum.toFixed(3) + (strengthNum >= 0.999 ? ' (Fully Activated)' : ' (Partially Activated)') + '</span>';
+      html += '</div>';
+
+      html += '<div class="rule-formula-box">';
+      html += '<div><span class="rule-keyword">IF</span> ' + esc(translated) + '</div>';
+      html += '<div><span class="rule-keyword">THEN</span> Opportunity Level is <strong style="color:var(--accent);">' + esc(consequence) + '</strong></div>';
+      html += '</div>';
+
+      html += '<div class="rule-explanation-text">';
+      html += 'Under current conditions, ' + esc(translated) + ', causing rule ' + esc(rId) + ' to activate at \u03BC = ' + strengthNum.toFixed(3) + ' and contribute to the Mamdani defuzzified opportunity score.';
+      html += '</div>';
+      html += '</div>';
     });
   } else {
-    html += '<span style="color:var(--text-3);font-family:var(--mono);font-size:11px;">No membership data returned.</span>';
+    html += '<p style="font-size:13px;color:var(--text-3);font-family:var(--mono);padding:10px 0;">No fuzzy rules exceeded the zero activation threshold for this specific input combination.</p>';
+  }
+
+  html += '</div>';
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION E: Expected Impact
+     ═══════════════════════════════════════════════════════════════════════ */
+  html += '<div class="adv-section">';
+  html += '<div class="adv-label"><span class="adv-label-num">E</span>Expected Impact</div>';
+
+  // Distinction of energy terms
+  html += '<div class="terms-distinction-grid">';
+  html += '<div class="term-box"><div class="term-title">Power (kW / W)</div><div class="term-desc">Instantaneous rate of electricity draw at this exact moment.</div></div>';
+  html += '<div class="term-box"><div class="term-title">Energy (kWh)</div><div class="term-desc">Cumulative electricity consumed over time (Power \u00D7 Hours).</div></div>';
+  html += '<div class="term-box"><div class="term-title">Estimated Savings</div><div class="term-desc">Modeled reduction based on simulated setpoint or schedule changes.</div></div>';
+  html += '<div class="term-box"><div class="term-title">Measured Savings</div><div class="term-desc">Empirical reduction verified by comparing against a calibrated baseline.</div></div>';
+  html += '</div>';
+
+  html += '<div style="font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-3);margin:14px 0 8px;">Qualitative Operational Benefits</div>';
+  html += '<ul class="impact-list">';
+  qualImpacts.forEach(ben => {
+    html += '<li>' + esc(ben) + '</li>';
+  });
+  html += '</ul>';
+
+  html += '<div class="savings-status-box">';
+  if (d.savings || d.estimated_savings) {
+    html += '<strong>Validated Quantitative Estimate:</strong> ' + esc(JSON.stringify(d.savings || d.estimated_savings));
+  } else {
+    html += '<strong>Quantitative Savings Status:</strong> Quantitative savings estimates (kWh, monetary reduction, or percentage savings) are not calculated for this evaluation snapshot. Accurately determining quantitative savings requires: (1) a multi-day metered baseline, (2) sub-metered circuit telemetry, and (3) confirmed operating duration. Never assume the opportunity score equals a percentage of energy saved or wasted.';
   }
   html += '</div>';
-  html += '<div style="font-family:var(--mono);font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.12em;margin:12px 0 8px;">Full Diagnostic JSON</div>';
-  html += '<div class="diag-json">' + esc(JSON.stringify(d, null, 2)) + '</div>';
+
+  html += '</div>';
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION F: Missing Information
+     ═══════════════════════════════════════════════════════════════════════ */
+  html += '<div class="adv-section">';
+  html += '<div class="adv-label"><span class="adv-label-num">F</span>Missing Information &amp; Baselines</div>';
+  html += '<p style="font-size:13px;color:var(--text-2);margin-bottom:12px;line-height:1.5;">The following additional measurements, metered baselines, and context would allow the system to make high-confidence, definitive energy decisions:</p>';
+
+  html += '<div class="missing-items-list">';
+  missingGaps.forEach(gap => {
+    html += '<div class="missing-item-row">';
+    html += '<div class="missing-bullet"></div>';
+    html += '<div><strong>' + esc(gap.title) + ':</strong> ' + esc(gap.desc) + '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  html += '</div>';
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION G: Technical Details (Expandable)
+     ═══════════════════════════════════════════════════════════════════════ */
+  html += '<details class="tech-details">';
+  html += '<summary class="tech-summary"><span class="tech-chevron">&#9658;</span><strong>G &middot; Technical Details</strong> &mdash; Fuzzy memberships, rule evaluation table, defuzzification &amp; diagnostic JSON</summary>';
+  html += '<div class="tech-body">';
+
+  // 1. Fuzzy Memberships
+  html += '<div class="tech-subheading">1 &middot; Input Variable Fuzzy Memberships</div>';
+  html += '<div class="memb-quad-grid">';
+  html += renderMembershipCards(membs);
+  html += '</div>';
+
+  // 2. Rules Evaluation Table
+  const totalRules = allRules.length || activeRules.length;
+  html += '<div class="tech-subheading" style="margin-top:18px;">2 &middot; Fuzzy Rules Evaluation (' + activeRules.length + ' Active / ' + totalRules + ' Total Configured)</div>';
+  html += '<div class="table-wrap" style="max-height:280px;overflow-y:auto;margin-bottom:16px;">';
+  html += '<table class="tech-rules-table">';
+  html += '<thead><tr><th>Rule ID</th><th>Rule Name</th><th>Kind</th><th>Antecedent</th><th>Output Set</th><th>Strength (&mu;)</th></tr></thead>';
+  html += '<tbody>';
+  const tableRules = allRules.length > 0 ? allRules : activeRules;
+  if (tableRules.length > 0) {
+    tableRules.forEach(r => {
+      const s = (typeof r.strength === 'number') ? r.strength : ((typeof r.activation === 'number') ? r.activation : 0);
+      const isActive = s > 0;
+      html += '<tr class="' + (isActive ? 'active-row' : '') + '">';
+      html += '<td style="color:' + (isActive ? 'var(--accent)' : 'inherit') + ';font-weight:600;">' + esc(r.id || '–') + '</td>';
+      html += '<td>' + esc(r.name || '–') + '</td>';
+      html += '<td style="font-size:10px;color:var(--text-3);">' + esc(r.kind || 'core') + '</td>';
+      html += '<td style="font-size:11px;">' + esc(r.antecedent || '–') + '</td>';
+      html += '<td>' + esc(r.output || '–') + '</td>';
+      html += '<td style="color:' + (isActive ? 'var(--accent)' : 'var(--text-3)') + ';font-weight:' + (isActive ? '700' : '400') + ';">' + s.toFixed(3) + '</td>';
+      html += '</tr>';
+    });
+  } else {
+    html += '<tr><td colspan="6" style="text-align:center;color:var(--text-3);padding:14px;">No rule evaluation records available.</td></tr>';
+  }
+  html += '</tbody></table></div>';
+
+  // 3. Defuzzification Summary
+  html += '<div class="tech-subheading">3 &middot; Defuzzification &amp; Aggregation Summary</div>';
+  html += '<div class="defuzz-grid">';
+  html += '<div class="defuzz-tile"><div class="defuzz-label">Inference Model</div><div class="defuzz-val">Mamdani (MIN / MAX)</div></div>';
+  html += '<div class="defuzz-tile"><div class="defuzz-label">Defuzzification</div><div class="defuzz-val">Centroid (Center of Gravity)</div></div>';
+  html += '<div class="defuzz-tile"><div class="defuzz-label">Raw Centroid Score</div><div class="defuzz-val">' + rawScore.toFixed(4) + '</div></div>';
+  html += '<div class="defuzz-tile"><div class="defuzz-label">Engine Version</div><div class="defuzz-val">' + esc(d.engine_version || 'FSEM-Mamdani-1.0') + '</div></div>';
+  html += '<div class="defuzz-tile"><div class="defuzz-label">Fallback Mode</div><div class="defuzz-val" style="color:' + (d.fallback_used ? 'var(--red)' : 'var(--accent)') + ';">' + (d.fallback_used ? 'Active' : 'No (Standard Engine)') + '</div></div>';
+  html += '</div>';
+
+  // 4. Raw Diagnostic JSON with Copy button
+  html += '<div style="display:flex;align-items:center;justify-content:space-between;margin:18px 0 8px;flex-wrap:wrap;gap:8px;">';
+  html += '<div class="tech-subheading" style="margin:0;">4 &middot; Raw Diagnostic JSON</div>';
+  html += '<button type="button" class="btn btn-ghost" id="copy-json-btn" onclick="copyDiagnosticJson()" style="padding:4px 12px;font-size:11px;font-family:var(--mono);">Copy JSON</button>';
+  html += '</div>';
+  html += '<div class="diag-json" id="diag-json-pre">' + esc(JSON.stringify(d, null, 2)) + '</div>';
+
   html += '</div></details>';
 
   container.innerHTML = html;
+  setGauge(score, category);
 }
 
+/* ── Evaluate Form Submission ─────────────────────────────────────────── */
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   clearError();
@@ -1041,20 +1758,25 @@ form.addEventListener('submit', async (e) => {
   });
   body.source   = fd.get('source')   || 'ui';
   body.scenario = fd.get('scenario') || 'manual';
+
   try {
-    const res  = await fetch(BASE + '/evaluate', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+    const res  = await fetch(BASE + '/evaluate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
     const data = await res.json();
     if (!res.ok) {
       const detail = data.errors
-        ? Object.entries(data.errors).map(([k,v]) => k + ': ' + v).join('; ')
+        ? (Array.isArray(data.errors) ? data.errors.map(err => typeof err === 'object' ? JSON.stringify(err) : String(err)).join('; ') : Object.entries(data.errors).map(([k,v]) => k + ': ' + v).join('; '))
         : (data.message || res.statusText);
       showError(res.status + ': ' + detail);
       setLoading(false);
       return;
     }
+
     // Keep submitted inputs on the data object so renderAdvisory can use them
     data._submitted = body;
-    // Fallback: if API doesn't echo inputs, inject them
     if (data.temperature_c    == null) data.temperature_c    = body.temperature_c;
     if (data.occupancy_count  == null) data.occupancy_count  = body.occupancy_count;
     if (data.room_capacity    == null) data.room_capacity    = body.room_capacity;
@@ -1062,7 +1784,6 @@ form.addEventListener('submit', async (e) => {
     if (data.rated_power_w    == null) data.rated_power_w    = body.rated_power_w;
     if (data.hour             == null) data.hour             = body.hour;
 
-    setGauge(data.score ?? 0, data.category ?? 'Unknown');
     renderAdvisory(data);
 
     resultPanel.style.display = 'block';
@@ -1077,14 +1798,12 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-/* History */
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
+/* ── Reading History ──────────────────────────────────────────────────── */
 async function loadHistory(limit = 50) {
   const tbody   = document.getElementById('history-body');
   const countEl = document.getElementById('history-count');
+  if (!tbody) return;
+
   tbody.innerHTML = [1,2,3].map(() =>
     '<tr><td colspan="9"><div class="skeleton-row">'
     + '<div class="skel" style="width:120px;"></div>'
@@ -1093,6 +1812,7 @@ async function loadHistory(limit = 50) {
     + '<div class="skel" style="width:50%;"></div>'
     + '</div></td></tr>'
   ).join('');
+
   try {
     const res  = await fetch(BASE + '/history?limit=' + limit);
     if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -1101,35 +1821,41 @@ async function loadHistory(limit = 50) {
     if (Array.isArray(data)) records = data;
     else if (data && Array.isArray(data.records)) records = data.records;
     else if (data && Array.isArray(data.data))    records = data.data;
-    countEl.textContent = records.length ? records.length + ' record' + (records.length !== 1 ? 's' : '') : '';
+
+    if (countEl) countEl.textContent = records.length ? records.length + ' record' + (records.length !== 1 ? 's' : '') : '';
+
     if (!records.length) {
       tbody.innerHTML = '<tr><td colspan="9"><div class="empty-state"><div class="empty-icon">&#128365;</div><div class="empty-title">No readings yet</div><div class="empty-sub">Submit an evaluation above to generate your first record.</div></div></td></tr>';
       return;
     }
+
     tbody.innerHTML = records.map(r => {
-      const cat  = (r.category || '').toLowerCase();
-      const cls  = {optimal:'optimal',moderate:'moderate',high:'high'}[cat] || 'unknown';
-      const color = cls==='optimal'?'var(--accent)':cls==='moderate'?'var(--amber)':cls==='high'?'var(--red)':'var(--text-1)';
-      const ts   = r.timestamp ? new Date(r.timestamp).toLocaleString() : (r.created_at || '\u2013');
+      const catInfo = normalizeCategory(r.category);
+      const rawTs = r.evaluated_at || r.timestamp || r.created_at;
+      const ts = rawTs ? new Date(rawTs).toLocaleString() : '\u2013';
+      const scoreVal = (r.score != null) ? (r.score % 1 === 0 ? r.score : r.score.toFixed(1)) : '\u2013';
+      const occStr = (r.occupancy_count != null ? r.occupancy_count : '\u2013') + ' / ' + (r.room_capacity != null ? r.room_capacity : '\u2013');
+      const pwrStr = (r.current_power_w != null ? r.current_power_w.toLocaleString() + ' W' : '\u2013');
+
       return '<tr>'
         + '<td class="td-mono">' + esc(ts) + '</td>'
-        + '<td class="td-score" style="color:' + color + '">' + (r.score != null ? Math.round(r.score) : '\u2013') + '</td>'
-        + '<td><span class="badge badge-' + cls + '">' + esc(r.category || '\u2013') + '</span></td>'
+        + '<td class="td-score" style="color:' + catInfo.color + '">' + scoreVal + '</td>'
+        + '<td><span class="badge badge-' + catInfo.key + '">' + esc(r.category || '\u2013') + '</span></td>'
         + '<td class="td-mono">' + (r.temperature_c != null ? r.temperature_c : '\u2013') + '</td>'
-        + '<td class="td-mono">' + (r.occupancy_count != null ? r.occupancy_count : '\u2013') + ' / ' + (r.room_capacity != null ? r.room_capacity : '\u2013') + '</td>'
-        + '<td class="td-mono">' + (r.current_power_w != null ? r.current_power_w : '\u2013') + '</td>'
+        + '<td class="td-mono">' + esc(occStr) + '</td>'
+        + '<td class="td-mono">' + esc(pwrStr) + '</td>'
         + '<td class="td-mono">' + (r.hour != null ? r.hour : '\u2013') + '</td>'
         + '<td class="td-mono">' + esc(r.scenario || '\u2013') + '</td>'
         + '<td class="td-rec">' + esc(r.recommendation || '\u2013') + '</td>'
         + '</tr>';
     }).join('');
   } catch(err) {
-    tbody.innerHTML = '<tr><td colspan="9"><div class="empty-state"><div class="empty-icon">&#9888;</div><div class="empty-title">Failed to load history</div><div class="empty-sub">' + esc(err.message) + '</div></div></td></tr>';
-    countEl.textContent = '';
+    if (tbody) tbody.innerHTML = '<tr><td colspan="9"><div class="empty-state"><div class="empty-icon">&#9888;</div><div class="empty-title">Failed to load history</div><div class="empty-sub">' + esc(err.message) + '</div></div></td></tr>';
+    if (countEl) countEl.textContent = '';
   }
 }
 
-/* Reset */
+/* Reset Form */
 function resetForm() {
   document.getElementById('temperature_c').value   = 26;
   document.getElementById('occupancy_count').value = 15;

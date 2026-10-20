@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FSEM · Fuzzy Smart Energy Monitor</title>
+  <meta name="description" content="Real-time fuzzy logic energy monitoring dashboard. Evaluate room conditions and track energy efficiency history." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:          #080c13;
+      --bg-card:     #0d1220;
+      --border:      rgba(255,255,255,0.07);
+      --accent:      #00d97e;
+      --accent-glow: rgba(0,217,126,0.15);
+      --cyan:        #06b6d4;
+      --cyan-glow:   rgba(6,182,212,0.15);
+      --amber:       #f59e0b;
+      --red:         #ef4444;
+      --text-1:      #f1f5f9;
+      --text-2:      #94a3b8;
+      --text-3:      #475569;
+      --mono:        'JetBrains Mono', monospace;
+      --sans:        'Outfit', sans-serif;
+      --radius:      12px;
+      --radius-sm:   8px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text-1);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,217,126,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,217,126,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .page { position: relative; z-index: 1; max-width: 1440px; margin: 0 auto; padding: 0 24px 40px; }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0 24px;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .header-brand { display: flex; align-items: center; gap: 12px; }
+    .header-logo {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--accent), var(--cyan));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 0 20px rgba(0,217,126,0.4);
+    }
+    .header-title { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+    .header-title span { color: var(--accent); }
+    .header-sub { font-family: var(--mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 2px; }
+    .header-status { display: flex; align-items: center; gap: 24px; }
+    .status-pill { display: flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 11px; color: var(--text-2); letter-spacing: 0.08em; }
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 8px var(--accent);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--accent); }
+      50%       { opacity: 0.5; box-shadow: 0 0 4px var(--accent); }
+    }
+    #live-clock { font-family: var(--mono); font-size: 13px; color: var(--text-2); letter-spacing: 0.05em; }
+    section { margin-top: 28px; }
+    .section-label { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--text-3); margin-bottom: 14px; }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .card:hover { border-color: rgba(0,217,126,0.2); box-shadow: 0 0 30px rgba(0,217,126,0.06); }
+    .eval-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    .field-group { display: flex; flex-direction: column; gap: 6px; }
+    .field-group label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-3); }
+    .field-group input,
+    .field-group select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-1);
+      font-family: var(--mono);
+      font-size: 13px;
+      padding: 10px 12px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+    .field-group input:focus, .field-group select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .field-group input::placeholder { color: var(--text-3); }
+    .field-group select option { background: #111; }
+    .eval-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin-top: 20px;
+      padding-top: 18px; border-top: 1px solid var(--border);
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--sans); font-size: 14px; font-weight: 600;
+      padding: 11px 24px; border-radius: var(--radius-sm);
+      border: none; cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+      letter-spacing: 0.01em;
+    }
+    .btn:active { transform: translateY(1px) scale(0.98); }
+    .btn-primary { background: var(--accent); color: #030703; }
+    .btn-primary:hover { box-shadow: 0 0 20px rgba(0,217,126,0.4); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-ghost { background: transparent; color: var(--text-2); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.15); color: var(--text-1); }
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(3,7,3,0.3);
+      border-top-color: #030703;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #result-panel { margin-top: 20px; display: none; animation: slide-up 0.4s cubic-bezier(0.16,1,0.3,1); }
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .result-grid { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: start; }
+    .score-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .gauge-ring { position: relative; width: 120px; height: 120px; }
+    .gauge-ring svg { transform: rotate(-90deg); }
+    .gauge-bg { fill: none; stroke: var(--border); stroke-width: 8; }
+    .gauge-fill { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 0.8s cubic-bezier(0.16,1,0.3,1), stroke 0.4s; }
+    .gauge-label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .gauge-score { font-family: var(--mono); font-size: 28px; font-weight: 600; line-height: 1; }
+    .gauge-unit { font-family: var(--mono); font-size: 10px; color: var(--text-3); margin-top: 2px; }
+    .score-cat { font-size: 11px; font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; }
+    .cat-optimal  { color: var(--accent); background: rgba(0,217,126,0.1);  border: 1px solid rgba(0,217,126,0.3); }
+    .cat-moderate { color: var(--amber);  background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); }
+    .cat-high     { color: var(--red);    background: rgba(239,68,68,0.1);  border: 1px solid rgba(239,68,68,0.3); }
+    .cat-unknown  { color: var(--text-2); background: rgba(255,255,255,0.05); border: 1px solid var(--border); }
+    .result-details { display: flex; flex-direction: column; gap: 12px; }
+    .result-row { display: flex; flex-direction: column; gap: 4px; }
+    .result-row-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-3); }
+    .result-row-val { font-size: 14px; color: var(--text-1); line-height: 1.5; }
+    .memberships-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+    .membership-tag { font-family: var(--mono); font-size: 10px; padding: 3px 9px; border-radius: 4px; background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.2); color: var(--cyan); }
+    .top-rules-list { display: flex; flex-direction: column; gap: 5px; }
+    .rule-item { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; color: var(--text-2); }
+    .rule-item::before { content: 'b'; color: var(--accent); font-size: 9px; }
+    #error-banner { display: none; margin-top: 12px; padding: 12px 16px; border-radius: var(--radius-sm); background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: var(--red); font-family: var(--mono); font-size: 12px; animation: slide-up 0.3s ease; }
+    .history-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 12px; flex-wrap: wrap; }
+    .history-count { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+    .table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead tr { background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border); }
+    thead th { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-3); padding: 12px 16px; text-align: left; white-space: nowrap; }
+    tbody tr { border-bottom: 1px solid rgba(255,255,255,0.04); transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
+    tbody td { padding: 12px 16px; color: var(--text-2); white-space: nowrap; vertical-align: middle; }
+    .td-mono { font-family: var(--mono); font-size: 12px; }
+    .td-score { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--text-1); }
+    .td-rec { max-width: 260px; white-space: normal; font-size: 12px; color: var(--text-2); line-height: 1.4; }
+    .badge { display: inline-flex; align-items: center; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+    .badge-optimal  { color: var(--accent); background: rgba(0,217,126,0.1);  border: 1px solid rgba(0,217,126,0.25); }
+    .badge-moderate { color: var(--amber);  background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); }
+    .badge-high     { color: var(--red);    background: rgba(239,68,68,0.1);  border: 1px solid rgba(239,68,68,0.25); }
+    .badge-unknown  { color: var(--text-3); background: rgba(255,255,255,0.05); border: 1px solid var(--border); }
+    .skeleton-row { display: flex; gap: 16px; padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .skel { height: 12px; border-radius: 4px; background: rgba(255,255,255,0.06); animation: shimmer 1.5s ease-in-out infinite; flex-shrink: 0; }
+    @keyframes shimmer { 0% { opacity: 0.4; } 50% { opacity: 0.8; } 100% { opacity: 0.4; } }
+    .empty-state { padding: 48px 24px; text-align: center; color: var(--text-3); }
+    .empty-icon { font-size: 32px; margin-bottom: 12px; filter: grayscale(1) opacity(0.4); }
+    .empty-title { font-size: 14px; color: var(--text-2); margin-bottom: 6px; }
+    .empty-sub { font-size: 12px; font-family: var(--mono); }
+    .info-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: var(--radius-sm); background: rgba(6,182,212,0.07); border: 1px solid rgba(6,182,212,0.2); font-size: 12px; color: var(--cyan); font-family: var(--mono); margin-bottom: 20px; }
+    footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    footer span { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+    .footer-endpoints { display: flex; gap: 16px; flex-wrap: wrap; }
+    .endpoint-pill { font-family: var(--mono); font-size: 10px; padding: 3px 10px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text-3); }
+    @media (max-width: 768px) {
+      .eval-grid { grid-template-columns: 1fr 1fr; }
+      .result-grid { grid-template-columns: 1fr; }
+      .header-status { gap: 12px; }
+    }
+    @media (max-width: 480px) {
+      .eval-grid { grid-template-columns: 1fr; }
+      .page { padding: 0 16px 32px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="header-brand">
+      <div class="header-logo">&#9889;</div>
+      <div>
+        <div class="header-title">FSEM <span>Dashboard</span></div>
+        <div class="header-sub">Fuzzy Smart Energy Monitor &middot; n8n Automation</div>
+      </div>
+    </div>
+    <div class="header-status">
+      <div class="status-pill"><div class="status-dot"></div>LIVE</div>
+      <div id="live-clock">--:--:--</div>
+    </div>
+  </header>
+
+  <!-- Evaluate -->
+  <section>
+    <div class="section-label">Evaluate Reading</div>
+    <div class="info-bar">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+      </svg>
+      POST &rarr; <strong style="margin:0 4px">/webhook/fsem/evaluate</strong> &middot; Fill fields and submit to run the fuzzy engine
+    </div>
+    <div class="card">
+      <form id="eval-form">
+        <div class="eval-grid">
+          <div class="field-group">
+            <label>Temperature (&deg;C)</label>
+            <input type="number" id="temperature_c" name="temperature_c" value="26" min="-20" max="60" step="0.1" />
+          </div>
+          <div class="field-group">
+            <label>Occupancy Count</label>
+            <input type="number" id="occupancy_count" name="occupancy_count" value="15" min="0" max="1000" />
+          </div>
+          <div class="field-group">
+            <label>Room Capacity</label>
+            <input type="number" id="room_capacity" name="room_capacity" value="40" min="1" max="1000" />
+          </div>
+          <div class="field-group">
+            <label>Current Power (W)</label>
+            <input type="number" id="current_power_w" name="current_power_w" value="1500" min="0" max="100000" />
+          </div>
+          <div class="field-group">
+            <label>Rated Power (W)</label>
+            <input type="number" id="rated_power_w" name="rated_power_w" value="2000" min="1" max="100000" />
+          </div>
+          <div class="field-group">
+            <label>Hour of Day (0&#8211;23)</label>
+            <input type="number" id="hour" name="hour" value="14" min="0" max="23" />
+          </div>
+          <div class="field-group">
+            <label>Source</label>
+            <select id="source" name="source">
+              <option value="ui" selected>ui</option>
+              <option value="api">api</option>
+              <option value="sensor">sensor</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Scenario</label>
+            <input type="text" id="scenario" name="scenario" value="manual" placeholder="e.g. demo, peak, night" />
+          </div>
+        </div>
+        <div class="eval-footer">
+          <div id="eval-status" style="font-family:var(--mono);font-size:11px;color:var(--text-3);"></div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <button type="button" class="btn btn-ghost" onclick="resetForm()">Reset</button>
+            <button type="submit" class="btn btn-primary" id="eval-btn">
+              <span class="spinner" id="eval-spinner"></span>
+              <span id="eval-btn-text">Run Evaluation</span>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div id="error-banner"></div>
+
+      <div id="result-panel">
+        <div style="height:1px;background:var(--border);margin:20px 0;"></div>
+        <div class="section-label">Evaluation Result</div>
+        <div class="result-grid">
+          <div class="score-wrap">
+            <div class="gauge-ring">
+              <svg width="120" height="120" viewBox="0 0 120 120">
+                <circle class="gauge-bg" cx="60" cy="60" r="48"/>
+                <circle class="gauge-fill" id="gauge-fill" cx="60" cy="60" r="48"
+                  stroke-dasharray="301.59" stroke-dashoffset="301.59" stroke="var(--accent)"/>
+              </svg>
+              <div class="gauge-label">
+                <span class="gauge-score" id="score-num">&#8211;</span>
+                <span class="gauge-unit">/100</span>
+              </div>
+            </div>
+            <span class="score-cat cat-unknown" id="score-cat">&#8211;</span>
+          </div>
+          <div class="result-details">
+            <div class="result-row">
+              <div class="result-row-label">Recommendation</div>
+              <div class="result-row-val" id="res-recommendation">&#8211;</div>
+            </div>
+            <div class="result-row">
+              <div class="result-row-label">Explanation</div>
+              <div class="result-row-val" id="res-explanation" style="color:var(--text-2);font-size:13px;">&#8211;</div>
+            </div>
+            <div class="result-row">
+              <div class="result-row-label">Fuzzy Memberships</div>
+              <div class="memberships-grid" id="res-memberships"></div>
+            </div>
+            <div class="result-row">
+              <div class="result-row-label">Top Rules Fired</div>
+              <div class="top-rules-list" id="res-top-rules"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- History -->
+  <section>
+    <div class="history-header">
+      <div class="section-label" style="margin-bottom:0;">Reading History</div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <span class="history-count" id="history-count"></span>
+        <button class="btn btn-ghost" style="padding:8px 16px;font-size:12px;" onclick="loadHistory()">&#8635; Refresh</button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Score</th>
+            <th>Category</th>
+            <th>Temp &deg;C</th>
+            <th>Occ / Cap</th>
+            <th>Power W</th>
+            <th>Hour</th>
+            <th>Scenario</th>
+            <th>Recommendation</th>
+          </tr>
+        </thead>
+        <tbody id="history-body">
+          <tr><td colspan="9"><div class="skeleton-row"><div class="skel" style="width:120px;"></div><div class="skel" style="width:40px;"></div><div class="skel" style="width:70px;"></div><div class="skel" style="width:50%;"></div></div></td></tr>
+          <tr><td colspan="9"><div class="skeleton-row"><div class="skel" style="width:100px;"></div><div class="skel" style="width:40px;"></div><div class="skel" style="width:90px;"></div><div class="skel" style="width:40%;"></div></div></td></tr>
+          <tr><td colspan="9"><div class="skeleton-row"><div class="skel" style="width:110px;"></div><div class="skel" style="width:40px;"></div><div class="skel" style="width:60px;"></div><div class="skel" style="width:55%;"></div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <span>FSEM &middot; Powered by n8n fuzzy logic engine</span>
+    <div class="footer-endpoints">
+      <span class="endpoint-pill">POST /fsem/evaluate</span>
+      <span class="endpoint-pill">GET /fsem/history</span>
+      <span class="endpoint-pill">GET /fsem/dashboard</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const BASE = "https://swaroop1301.app.n8n.cloud/webhook/fsem";
+
+/* Clock */
+function updateClock() {
+  const now = new Date();
+  document.getElementById('live-clock').textContent =
+    now.toLocaleTimeString('en-US', { hour12: false }) +
+    ' \u00B7 ' + now.toLocaleDateString('en-US', { day:'2-digit', month:'short', year:'numeric' });
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+/* Gauge */
+function setGauge(score, category) {
+  const fill  = document.getElementById('gauge-fill');
+  const num   = document.getElementById('score-num');
+  const cat   = document.getElementById('score-cat');
+  const circ  = 2 * Math.PI * 48;
+  const offset = circ - (score / 100) * circ;
+  const colorMap = { optimal:'var(--accent)', moderate:'var(--amber)', high:'var(--red)' };
+  const key = (category || '').toLowerCase();
+  const color = colorMap[key] || 'var(--cyan)';
+  fill.style.stroke = color;
+  fill.style.strokeDashoffset = offset;
+  num.textContent = Math.round(score);
+  num.style.color = color;
+  cat.textContent = category || 'Unknown';
+  cat.className = 'score-cat cat-' + (key in colorMap ? key : 'unknown');
+}
+
+/* Evaluate */
+const form       = document.getElementById('eval-form');
+const evalBtn    = document.getElementById('eval-btn');
+const evalBtnTxt = document.getElementById('eval-btn-text');
+const spinner    = document.getElementById('eval-spinner');
+const errBanner  = document.getElementById('error-banner');
+const statusEl   = document.getElementById('eval-status');
+const resultPanel = document.getElementById('result-panel');
+
+function setLoading(on) {
+  evalBtn.disabled = on;
+  spinner.style.display  = on ? 'block' : 'none';
+  evalBtnTxt.textContent = on ? 'Running\u2026' : 'Run Evaluation';
+}
+function showError(msg) {
+  errBanner.textContent = '\u26A0 ' + msg;
+  errBanner.style.display = 'block';
+  setTimeout(() => { errBanner.style.display = 'none'; }, 6000);
+}
+function clearError() { errBanner.style.display = 'none'; }
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  clearError();
+  setLoading(true);
+  resultPanel.style.display = 'none';
+  statusEl.textContent = '';
+  const fd = new FormData(form);
+  const body = {};
+  ['temperature_c','occupancy_count','room_capacity','current_power_w','rated_power_w','hour'].forEach(k => {
+    const v = fd.get(k);
+    if (v !== '' && v !== null) body[k] = parseFloat(v);
+  });
+  body.source   = fd.get('source')   || 'ui';
+  body.scenario = fd.get('scenario') || 'manual';
+  try {
+    const res  = await fetch(BASE + '/evaluate', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+    const data = await res.json();
+    if (!res.ok) {
+      const detail = data.errors ? JSON.stringify(data.errors) : (data.message || res.statusText);
+      showError(res.status + ': ' + detail);
+      setLoading(false);
+      return;
+    }
+    setGauge(data.score ?? 0, data.category ?? 'Unknown');
+    document.getElementById('res-recommendation').textContent = data.recommendation || '\u2013';
+    document.getElementById('res-explanation').textContent    = data.explanation     || '\u2013';
+    const membEl = document.getElementById('res-memberships');
+    membEl.innerHTML = '';
+    const membs = data.memberships || {};
+    Object.entries(membs).forEach(([k,v]) => {
+      const tag = document.createElement('span');
+      tag.className = 'membership-tag';
+      tag.textContent = k + ': ' + (typeof v === 'number' ? v.toFixed(2) : v);
+      membEl.appendChild(tag);
+    });
+    if (!Object.keys(membs).length) membEl.innerHTML = '<span style="color:var(--text-3);font-size:12px;font-family:var(--mono)">none returned</span>';
+    const rulesEl = document.getElementById('res-top-rules');
+    rulesEl.innerHTML = '';
+    const rules = data.top_rules || [];
+    if (rules.length) {
+      rules.forEach(r => {
+        const item = document.createElement('div');
+        item.className = 'rule-item';
+        item.textContent = typeof r === 'string' ? r : JSON.stringify(r);
+        rulesEl.appendChild(item);
+      });
+    } else {
+      rulesEl.innerHTML = '<span style="color:var(--text-3);font-size:12px;font-family:var(--mono)">none returned</span>';
+    }
+    resultPanel.style.display = 'block';
+    statusEl.textContent = '\u2713 Saved at ' + new Date().toLocaleTimeString();
+    statusEl.style.color = 'var(--accent)';
+    loadHistory();
+  } catch(err) {
+    showError('Network error: ' + err.message);
+  } finally {
+    setLoading(false);
+  }
+});
+
+/* History */
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+async function loadHistory(limit = 50) {
+  const tbody   = document.getElementById('history-body');
+  const countEl = document.getElementById('history-count');
+  tbody.innerHTML = [1,2,3].map(() =>
+    '<tr><td colspan="9"><div class="skeleton-row">'
+    + '<div class="skel" style="width:120px;"></div>'
+    + '<div class="skel" style="width:40px;"></div>'
+    + '<div class="skel" style="width:70px;"></div>'
+    + '<div class="skel" style="width:50%;"></div>'
+    + '</div></td></tr>'
+  ).join('');
+  try {
+    const res  = await fetch(BASE + '/history?limit=' + limit);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    let records = [];
+    if (Array.isArray(data)) records = data;
+    else if (data && Array.isArray(data.records)) records = data.records;
+    else if (data && Array.isArray(data.data))    records = data.data;
+    countEl.textContent = records.length ? records.length + ' record' + (records.length !== 1 ? 's' : '') : '';
+    if (!records.length) {
+      tbody.innerHTML = '<tr><td colspan="9"><div class="empty-state"><div class="empty-icon">&#128365;</div><div class="empty-title">No readings yet</div><div class="empty-sub">Submit an evaluation above to generate your first record.</div></div></td></tr>';
+      return;
+    }
+    tbody.innerHTML = records.map(r => {
+      const cat  = (r.category || '').toLowerCase();
+      const cls  = {optimal:'optimal',moderate:'moderate',high:'high'}[cat] || 'unknown';
+      const color = cls==='optimal'?'var(--accent)':cls==='moderate'?'var(--amber)':cls==='high'?'var(--red)':'var(--text-1)';
+      const ts   = r.timestamp ? new Date(r.timestamp).toLocaleString() : (r.created_at || '\u2013');
+      return '<tr>'
+        + '<td class="td-mono">' + esc(ts) + '</td>'
+        + '<td class="td-score" style="color:' + color + '">' + (r.score != null ? Math.round(r.score) : '\u2013') + '</td>'
+        + '<td><span class="badge badge-' + cls + '">' + esc(r.category || '\u2013') + '</span></td>'
+        + '<td class="td-mono">' + (r.temperature_c != null ? r.temperature_c : '\u2013') + '</td>'
+        + '<td class="td-mono">' + (r.occupancy_count != null ? r.occupancy_count : '\u2013') + ' / ' + (r.room_capacity != null ? r.room_capacity : '\u2013') + '</td>'
+        + '<td class="td-mono">' + (r.current_power_w != null ? r.current_power_w : '\u2013') + '</td>'
+        + '<td class="td-mono">' + (r.hour != null ? r.hour : '\u2013') + '</td>'
+        + '<td class="td-mono">' + esc(r.scenario || '\u2013') + '</td>'
+        + '<td class="td-rec">' + esc(r.recommendation || '\u2013') + '</td>'
+        + '</tr>';
+    }).join('');
+  } catch(err) {
+    tbody.innerHTML = '<tr><td colspan="9"><div class="empty-state"><div class="empty-icon">&#9888;</div><div class="empty-title">Failed to load history</div><div class="empty-sub">' + esc(err.message) + '</div></div></td></tr>';
+    countEl.textContent = '';
+  }
+}
+
+/* Reset */
+function resetForm() {
+  document.getElementById('temperature_c').value   = 26;
+  document.getElementById('occupancy_count').value = 15;
+  document.getElementById('room_capacity').value   = 40;
+  document.getElementById('current_power_w').value = 1500;
+  document.getElementById('rated_power_w').value   = 2000;
+  document.getElementById('hour').value            = 14;
+  document.getElementById('source').value          = 'ui';
+  document.getElementById('scenario').value        = 'manual';
+  resultPanel.style.display = 'none';
+  clearError();
+  statusEl.textContent = '';
+}
+
+loadHistory();
+</script>
+</body>
+</html>
